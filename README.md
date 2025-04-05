@@ -20,15 +20,15 @@ The staking program enables users to:
 ### Client Application
 A web-based interface for interacting with the protocol, built with:
 - TypeScript
-- Vite
-- Modern frontend frameworks
+- Next.js
+- React
 
 ## Getting Started
 
 ### Prerequisites
 - Solana CLI tools
-- Node.js 16+
-- pnpm package manager
+- Node.js 20.18.3
+- npm package manager
 
 ### Setup
 
@@ -46,8 +46,8 @@ cargo build-bpf
 
 # Set up the client application
 cd ../../client
-pnpm install
-pnpm dev
+npm install
+npm run dev
 ```
 
 ## Usage
@@ -88,9 +88,9 @@ solana program deploy --program-id <PROGRAM_ID> target/deploy/stake.so
 ### Client Development
 ```bash
 cd client
-pnpm dev       # Start development server
-pnpm build     # Build for production
-pnpm preview   # Preview production build
+npm run dev       # Start development server
+npm run build     # Build for production
+npm start         # Start production server
 ```
 
 ## Team
