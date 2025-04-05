@@ -26,14 +26,13 @@ root.render(
             <RpcContextProvider>
               <Flex direction="column">
                 <Nav />
-                <Section>
-                  <Routes>
-                    <Route path="/" element={<Root />} />
-                    <Route path="/mint" element={<Mint />} />
-                    <Route path="/earn" element={<Earn />} />
-                    <Route path="/deposit" element={<Deposit />} />
-                  </Routes>
-                </Section>
+
+                <Routes>
+                  <Route path="/" element={<Root />} />
+                  <Route path="/mint" element={<Mint />} />
+                  <Route path="/earn" element={<Earn />} />
+                  <Route path="/deposit" element={<Deposit />} />
+                </Routes>
               </Flex>
             </RpcContextProvider>
           </SelectedWalletAccountContextProvider>

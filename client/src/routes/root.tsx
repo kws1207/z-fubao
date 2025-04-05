@@ -12,9 +12,6 @@ import {
 } from "@radix-ui/themes";
 import { Link } from "react-router-dom";
 import { InfoCircledIcon, ExternalLinkIcon } from "@radix-ui/react-icons";
-import { useContext } from "react";
-import { ChainContext } from "../context/ChainContext";
-import { SelectedWalletAccountContext } from "../context/SelectedWalletAccountContext";
 
 interface MetricCardProps {
   label: string;
@@ -104,15 +101,11 @@ function MetricCard({ label, value, description }: MetricCardProps) {
 }
 
 function Root() {
-  const { chain } = useContext(ChainContext);
-  const [selectedWalletAccount] = useContext(SelectedWalletAccountContext);
-
   return (
     <Box
       style={{
         background: "linear-gradient(135deg, var(--indigo-1), var(--purple-1))",
         color: "var(--gray-12)",
-        minHeight: "100vh",
       }}
     >
       {/* Hero Section */}
@@ -121,7 +114,7 @@ function Root() {
         style={{
           background:
             "linear-gradient(135deg, var(--indigo-2), var(--purple-2))",
-          paddingTop: "40px",
+          paddingTop: "80px",
           paddingBottom: "80px",
         }}
       >
