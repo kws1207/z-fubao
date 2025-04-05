@@ -1,5 +1,4 @@
-
-# Z-Fubao: Solana DeFi Protocol
+# Z-Fubao: Earn, Pay, and Live with your Bitcoin
 
 Z-Fubao is a decentralized finance (DeFi) protocol built on Solana that enables users to:
 1. Deposit ZBTC as collateral to mint ZUSD stablecoins
@@ -93,3 +92,7 @@ pnpm dev       # Start development server
 pnpm build     # Build for production
 pnpm preview   # Preview production build
 ```
+
+## Team
+<img src="https://github.com/user-attachments/assets/583a005a-d5f3-45c6-bab9-aa271f44fe6f" alt="Orakle@KAIST" width="200"/>
+
