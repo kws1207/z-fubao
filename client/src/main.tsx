@@ -1,7 +1,7 @@
 import "./index.css";
 import "@radix-ui/themes/styles.css";
 
-import { Flex, Section, Theme } from "@radix-ui/themes";
+import { Flex, Theme } from "@radix-ui/themes";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
