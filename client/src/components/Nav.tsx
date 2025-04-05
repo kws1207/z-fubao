@@ -55,8 +55,8 @@ export function Nav() {
                     }}
                     value={chain}
                   >
-                    <DropdownMenu.RadioItem value="solana:testnet">
-                      Testnet
+                    <DropdownMenu.RadioItem value="solana:devnet">
+                      Devnet
                     </DropdownMenu.RadioItem>
                   </DropdownMenu.RadioGroup>
                 </DropdownMenu.Content>

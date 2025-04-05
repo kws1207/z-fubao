@@ -1,5 +1,5 @@
 import type { ClusterUrl } from "@solana/kit";
-import { testnet } from "@solana/kit";
+import { devnet } from "@solana/kit";
 import { createContext } from "react";
 
 export type ChainContext = Readonly<{
@@ -12,11 +12,11 @@ export type ChainContext = Readonly<{
 }>;
 
 export const DEFAULT_CHAIN_CONFIG = Object.freeze({
-  chain: "solana:testnet",
-  displayName: "Testnet",
-  solanaExplorerClusterName: "testnet",
-  solanaRpcSubscriptionsUrl: testnet("wss://api.testnet.solana.com"),
-  solanaRpcUrl: testnet("https://api.testnet.solana.com"),
+  chain: "solana:devnet",
+  displayName: "Devnet",
+  solanaExplorerClusterName: "devnet",
+  solanaRpcSubscriptionsUrl: devnet("wss://api.devnet.solana.com"),
+  solanaRpcUrl: devnet("https://api.devnet.solana.com"),
 });
 
 export const ChainContext = createContext<ChainContext>(DEFAULT_CHAIN_CONFIG);
