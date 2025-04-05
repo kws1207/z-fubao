@@ -193,7 +193,7 @@ export default function Home() {
                   }}
                 >
                   <Link
-                    href="/mint"
+                    href="/deposit"
                     style={{
                       color: "inherit",
                       textDecoration: "none",

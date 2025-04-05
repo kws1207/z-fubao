@@ -302,12 +302,12 @@ export default function Dashboard() {
       dollarValue: zbtcDollarValue,
     },
     zUSD: {
-      value: isConnected ? "3,245.78" : "-",
+      value: isConnected ? "2,962.26" : "-",
       change: "3.2%",
       isPositive: true,
     },
     szUSD: {
-      value: isConnected ? "1,892.45" : "-",
+      value: isConnected ? "2,000.00" : "-",
       change: "1.8%",
       isPositive: true,
     },

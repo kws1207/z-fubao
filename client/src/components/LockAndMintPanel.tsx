@@ -11,10 +11,11 @@ import { useState, useEffect } from "react";
 import { FeaturePanel } from "./FeaturePanel";
 import { tokenIcons } from "../config";
 import { useWallet } from "@solana/wallet-adapter-react";
+
 const fetchBTCPrice = async (): Promise<number> => {
   return new Promise((resolve) => {
     setTimeout(() => {
-      resolve(84000 + Math.random() * 2000);
+      resolve(84636);
     }, 500);
   });
 };
