@@ -10,6 +10,7 @@ import {
 import { useContext, useState, useEffect } from "react";
 import { FeaturePanel } from "./FeaturePanel";
 import { SelectedWalletAccountContext } from "../context/SelectedWalletAccountContext";
+import { tokenIcons } from "../config";
 
 const fetchBTCPrice = async (): Promise<number> => {
   return new Promise((resolve) => {
@@ -116,7 +117,7 @@ export function LockAndMintPanel() {
               <Flex gap="2" align="center">
                 <Box
                   style={{
-                    width: "100px",
+                    width: "160px",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -126,15 +127,25 @@ export function LockAndMintPanel() {
                     border: "1px solid rgba(59, 130, 246, 0.2)",
                   }}
                 >
-                  <Box
-                    style={{
-                      width: "20px",
-                      height: "20px",
-                      borderRadius: "50%",
-                      background: "linear-gradient(45deg, #F7931A, #F9B112)",
-                      marginRight: "8px",
-                    }}
-                  />
+                  {tokenIcons.zBTC.endsWith(".svg") ? (
+                    <img
+                      src={tokenIcons.zBTC}
+                      alt="zBTC"
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                        marginRight: "8px",
+                      }}
+                    />
+                  ) : (
+                    <Text
+                      size="3"
+                      weight="medium"
+                      style={{ marginRight: "8px" }}
+                    >
+                      {tokenIcons.zBTC}
+                    </Text>
+                  )}
                   <Text size="3" weight="medium">
                     zBTC
                   </Text>
@@ -181,7 +192,7 @@ export function LockAndMintPanel() {
               <Flex gap="2" align="center">
                 <Box
                   style={{
-                    width: "100px",
+                    width: "160px",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -191,21 +202,31 @@ export function LockAndMintPanel() {
                     border: "1px solid rgba(16, 185, 129, 0.2)",
                   }}
                 >
-                  <Box
-                    style={{
-                      width: "20px",
-                      height: "20px",
-                      borderRadius: "50%",
-                      background: "linear-gradient(45deg, #2CAA6E, #43B776)",
-                      marginRight: "8px",
-                    }}
-                  />
+                  {tokenIcons.zUSD.endsWith(".svg") ? (
+                    <img
+                      src={tokenIcons.zUSD}
+                      alt="zUSD"
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                        marginRight: "8px",
+                      }}
+                    />
+                  ) : (
+                    <Text
+                      size="3"
+                      weight="medium"
+                      style={{ marginRight: "8px" }}
+                    >
+                      {tokenIcons.zUSD}
+                    </Text>
+                  )}
                   <Text size="3" weight="medium">
                     zUSD
                   </Text>
                 </Box>
                 <TextField.Root
-                  style={{ width: "100%", fontSize: "16px" }}
+                  style={{ width: "100%", fontSize: "16px", height: "45px" }}
                   placeholder="0.0"
                   type="number"
                   value={usdAmount}
