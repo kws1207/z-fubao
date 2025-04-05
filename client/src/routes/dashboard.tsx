@@ -14,6 +14,8 @@ import {
 import { InfoCircledIcon, PlusIcon } from "@radix-ui/react-icons";
 import { Link } from "react-router-dom";
 import { useDashboardData } from "../hooks/useDashboardData";
+import { ChargeModal } from "../components/ChargeModal";
+import { useCharge } from "../hooks/useCharge";
 
 interface AssetCardProps {
   label: string;
@@ -45,7 +47,7 @@ function AssetCard({
       onMouseEnter={(e) => {
         e.currentTarget.style.transform = "translateY(-5px)";
         e.currentTarget.style.boxShadow =
-          "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)";
+          "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -6px rgba(0, 0, 0, 0.04)";
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.transform = "none";
@@ -192,6 +194,13 @@ function VaultCard({ title, percentage, apy, amount, color }: VaultCardProps) {
 
 function Dashboard() {
   const { isConnected, assetData, yieldData, vaultData } = useDashboardData();
+  const {
+    isButtonDisabled,
+    chargeModalOpen,
+    setChargeModalOpen,
+    handleOpenChargeModal,
+    handleCharge,
+  } = useCharge();
 
   return (
     <Box
@@ -226,6 +235,7 @@ function Dashboard() {
             </Heading>
             <Button
               size="3"
+              disabled={isButtonDisabled}
               style={{
                 background:
                   "linear-gradient(45deg, var(--jade-9), var(--mint-9))",
@@ -233,17 +243,24 @@ function Dashboard() {
                 color: "white",
                 boxShadow: "0 4px 14px rgba(0, 160, 120, 0.4)",
                 transition: "transform 0.2s, box-shadow 0.2s",
+                opacity: isButtonDisabled ? "0.5" : "1",
+                cursor: isButtonDisabled ? "not-allowed" : "pointer",
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.transform = "translateY(-2px)";
-                e.currentTarget.style.boxShadow =
-                  "0 6px 20px rgba(0, 160, 120, 0.5)";
+                if (!isButtonDisabled) {
+                  e.currentTarget.style.transform = "translateY(-2px)";
+                  e.currentTarget.style.boxShadow =
+                    "0 6px 20px rgba(0, 160, 120, 0.5)";
+                }
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.transform = "none";
-                e.currentTarget.style.boxShadow =
-                  "0 4px 14px rgba(0, 160, 120, 0.4)";
+                if (!isButtonDisabled) {
+                  e.currentTarget.style.transform = "none";
+                  e.currentTarget.style.boxShadow =
+                    "0 4px 14px rgba(0, 160, 120, 0.4)";
+                }
               }}
+              onClick={isButtonDisabled ? undefined : handleOpenChargeModal}
             >
               <PlusIcon style={{ marginRight: "4px" }} />
               Charge USDC
@@ -626,6 +643,7 @@ function Dashboard() {
               </Button>
               <Button
                 size="3"
+                disabled={isButtonDisabled}
                 style={{
                   background:
                     "linear-gradient(45deg, var(--jade-9), var(--mint-9))",
@@ -633,17 +651,24 @@ function Dashboard() {
                   color: "white",
                   boxShadow: "0 4px 14px rgba(0, 160, 120, 0.4)",
                   transition: "transform 0.2s, box-shadow 0.2s",
+                  opacity: isButtonDisabled ? "0.5" : "1",
+                  cursor: isButtonDisabled ? "not-allowed" : "pointer",
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = "translateY(-2px)";
-                  e.currentTarget.style.boxShadow =
-                    "0 6px 20px rgba(0, 160, 120, 0.5)";
+                  if (!isButtonDisabled) {
+                    e.currentTarget.style.transform = "translateY(-2px)";
+                    e.currentTarget.style.boxShadow =
+                      "0 6px 20px rgba(0, 160, 120, 0.5)";
+                  }
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = "none";
-                  e.currentTarget.style.boxShadow =
-                    "0 4px 14px rgba(0, 160, 120, 0.4)";
+                  if (!isButtonDisabled) {
+                    e.currentTarget.style.transform = "none";
+                    e.currentTarget.style.boxShadow =
+                      "0 4px 14px rgba(0, 160, 120, 0.4)";
+                  }
                 }}
+                onClick={isButtonDisabled ? undefined : handleOpenChargeModal}
               >
                 <PlusIcon style={{ marginRight: "4px" }} />
                 Charge USDC
@@ -680,6 +705,12 @@ function Dashboard() {
           </Flex>
         </Container>
       </Section>
+
+      <ChargeModal
+        open={chargeModalOpen}
+        onOpenChange={setChargeModalOpen}
+        onCharge={handleCharge}
+      />
     </Box>
   );
 }
