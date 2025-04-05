@@ -2,8 +2,8 @@
 
 import { Box, Container, Flex, Heading, Section, Text } from "@radix-ui/themes";
 
-import MintWidget from "@/components/Widgets/MintWidget/MintWidget";
 import { Footer } from "@/components/Footer";
+import MintWidget from "@/components/Widgets/MintWidget/MintWidget";
 
 export default function Deposit() {
   return (

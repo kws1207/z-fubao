@@ -1,7 +1,9 @@
 "use client";
 
 import { Badge, Box, Flex, Heading } from "@radix-ui/themes";
+import Image from "next/image";
 import Link from "next/link";
+
 import { WalletButton } from "@/components/WalletButton/WalletButton";
 
 export function Nav() {
@@ -19,11 +21,11 @@ export function Nav() {
     >
       <Flex gap="4" justify="between" align="center" height="100%">
         <Flex align="center" gap="2">
-          <img
+          <Image
             src="/zFuBao_logo.png"
             alt="zFuBao Logo"
-            width="144"
-            height="38"
+            width={144}
+            height={38}
             style={{ marginRight: "8px" }}
           />
           <Heading as="h1" size={{ initial: "4", xs: "5" }} truncate>

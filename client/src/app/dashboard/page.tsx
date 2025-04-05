@@ -1,6 +1,11 @@
 "use client";
 
 import {
+  InfoCircledIcon,
+  PlusIcon,
+  ExternalLinkIcon,
+} from "@radix-ui/react-icons";
+import {
   Box,
   Button,
   Container,
@@ -12,14 +17,10 @@ import {
   Section,
   IconButton,
 } from "@radix-ui/themes";
-import {
-  InfoCircledIcon,
-  PlusIcon,
-  ExternalLinkIcon,
-} from "@radix-ui/react-icons";
-import { useState } from "react";
-import { Footer } from "@/components/Footer";
 import { useWallet } from "@solana/wallet-adapter-react";
+import { useState } from "react";
+
+import { Footer } from "@/components/Footer";
 import { ChargeModal } from "@/components/Modal/ChargeModal";
 
 interface AssetCardProps {
