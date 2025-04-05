@@ -32,23 +32,32 @@ export function ChargeModal({
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Content style={{ maxWidth: 450 }}>
-        <Dialog.Title>Charge ZUSD</Dialog.Title>
+        <Dialog.Title>Charge USDC</Dialog.Title>
         <Dialog.Description size="2" mb="4">
-          Specify the amount and destination for your ZUSD charge.
+          Top-up USDC with the yield from your Bitcoin. The yield is
+          automatically converted to USDC from the zUSD pool.
         </Dialog.Description>
 
         <Flex direction="column" gap="4">
           <Box>
-            <Text as="label" size="2" weight="bold" htmlFor="amount-input">
-              Amount (ZUSD)
+            <Text
+              as="label"
+              size="2"
+              weight="bold"
+              htmlFor="amount-input"
+              mb="2"
+            >
+              Amount (zUSD)
             </Text>
-            <TextField.Root
-              id="amount-input"
-              placeholder="0.0"
-              type="number"
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-            />
+            <Box mt="2">
+              <TextField.Root
+                id="amount-input"
+                placeholder="0.0"
+                type="number"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+              />
+            </Box>
           </Box>
 
           <Box>
