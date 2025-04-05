@@ -1,3 +1,4 @@
+import { Footer } from "../components/Footer";
 import { LockAndMintPanel } from "../components/LockAndMintPanel";
 import { Box, Container, Flex, Heading, Section, Text } from "@radix-ui/themes";
 
@@ -7,7 +8,10 @@ function Mint() {
       style={{
         background: "linear-gradient(135deg, var(--indigo-1), var(--purple-1))",
         color: "var(--gray-12)",
-        minHeight: "100vh",
+        minHeight: "calc(100vh - 80px)",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
       }}
     >
       <Section
@@ -66,6 +70,7 @@ function Mint() {
           <LockAndMintPanel />
         </Container>
       </Section>
+      <Footer />
     </Box>
   );
 }

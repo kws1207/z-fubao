@@ -12,10 +12,10 @@ import {
   Progress,
 } from "@radix-ui/themes";
 import { InfoCircledIcon, PlusIcon } from "@radix-ui/react-icons";
-import { Link } from "react-router-dom";
 import { useDashboardData } from "../hooks/useDashboardData";
 import { ChargeModal } from "../components/ChargeModal";
 import { useCharge } from "../hooks/useCharge";
+import { Footer } from "../components/Footer";
 
 interface AssetCardProps {
   label: string;
@@ -615,128 +615,12 @@ function Dashboard() {
         </Container>
       </Section>
 
-      <Section
-        size="3"
-        style={{
-          background: "linear-gradient(135deg, var(--gray-1), var(--gray-2))",
-          paddingTop: "40px",
-          paddingBottom: "60px",
-          borderTop: "1px solid rgba(99, 102, 241, 0.3)",
-        }}
-      >
-        <Container mx="auto" size="3">
-          <Flex direction="column" align="center" gap="4">
-            <Heading
-              size="6"
-              style={{
-                background:
-                  "linear-gradient(90deg, var(--indigo-11), var(--purple-11))",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                textAlign: "center",
-              }}
-            >
-              Manage Your Assets
-            </Heading>
-            <Flex gap="4" mt="4" wrap="wrap" justify="center">
-              <Button
-                size="3"
-                style={{
-                  background:
-                    "linear-gradient(45deg, var(--indigo-9), var(--purple-9))",
-                  borderRadius: "20px",
-                  color: "white",
-                  boxShadow: "0 4px 14px rgba(79, 70, 229, 0.4)",
-                  transition: "transform 0.2s, box-shadow 0.2s",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = "translateY(-2px)";
-                  e.currentTarget.style.boxShadow =
-                    "0 6px 20px rgba(79, 70, 229, 0.5)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = "none";
-                  e.currentTarget.style.boxShadow =
-                    "0 4px 14px rgba(79, 70, 229, 0.4)";
-                }}
-              >
-                <Link
-                  to="/mint"
-                  style={{ color: "inherit", textDecoration: "none" }}
-                >
-                  Mint New Assets
-                </Link>
-              </Button>
-              <Button
-                size="3"
-                disabled={isButtonDisabled}
-                style={{
-                  background:
-                    "linear-gradient(45deg, var(--jade-9), var(--mint-9))",
-                  borderRadius: "20px",
-                  color: "white",
-                  boxShadow: "0 4px 14px rgba(0, 160, 120, 0.4)",
-                  transition: "transform 0.2s, box-shadow 0.2s",
-                  opacity: isButtonDisabled ? "0.5" : "1",
-                  cursor: isButtonDisabled ? "not-allowed" : "pointer",
-                }}
-                onMouseEnter={(e) => {
-                  if (!isButtonDisabled) {
-                    e.currentTarget.style.transform = "translateY(-2px)";
-                    e.currentTarget.style.boxShadow =
-                      "0 6px 20px rgba(0, 160, 120, 0.5)";
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (!isButtonDisabled) {
-                    e.currentTarget.style.transform = "none";
-                    e.currentTarget.style.boxShadow =
-                      "0 4px 14px rgba(0, 160, 120, 0.4)";
-                  }
-                }}
-                onClick={isButtonDisabled ? undefined : handleOpenChargeModal}
-              >
-                <PlusIcon style={{ marginRight: "4px" }} />
-                Charge USDC
-              </Button>
-              <Button
-                size="3"
-                style={{
-                  background:
-                    "linear-gradient(45deg, var(--amber-9), var(--orange-9))",
-                  borderRadius: "20px",
-                  color: "white",
-                  boxShadow: "0 4px 14px rgba(230, 160, 40, 0.4)",
-                  transition: "transform 0.2s, box-shadow 0.2s",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = "translateY(-2px)";
-                  e.currentTarget.style.boxShadow =
-                    "0 6px 20px rgba(230, 160, 40, 0.5)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = "none";
-                  e.currentTarget.style.boxShadow =
-                    "0 4px 14px rgba(230, 160, 40, 0.4)";
-                }}
-              >
-                <Link
-                  to="/stake"
-                  style={{ color: "inherit", textDecoration: "none" }}
-                >
-                  Manage Staking
-                </Link>
-              </Button>
-            </Flex>
-          </Flex>
-        </Container>
-      </Section>
-
       <ChargeModal
         open={chargeModalOpen}
         onOpenChange={setChargeModalOpen}
         onCharge={handleCharge}
       />
+      <Footer />
     </Box>
   );
 }

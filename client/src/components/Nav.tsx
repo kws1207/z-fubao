@@ -3,7 +3,6 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { ChainContext } from "../context/ChainContext";
 import { ConnectWalletMenu } from "./ConnectWalletMenu";
-import { SignInMenu } from "./SignInMenu";
 
 export function Nav() {
   const {
@@ -23,11 +22,12 @@ export function Nav() {
         borderBottom: "1px solid var(--gray-a4)",
         zIndex: 1,
         padding: "12px 24px",
+        height: "80px",
       }}
       position="sticky"
       top="0"
     >
-      <Flex gap="4" justify="between" align="center">
+      <Flex gap="4" justify="between" align="center" height="100%">
         <Flex align="center" gap="2">
           <img
             src="/zFuBao_logo.png"
@@ -115,7 +115,6 @@ export function Nav() {
 
           <Flex gap="2">
             <ConnectWalletMenu>Connect Wallet</ConnectWalletMenu>
-            <SignInMenu>Sign In</SignInMenu>
           </Flex>
         </Flex>
       </Flex>
