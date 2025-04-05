@@ -5,6 +5,8 @@ import {
   DropdownMenu,
   Flex,
   Heading,
+  Avatar,
+  IconButton,
 } from "@radix-ui/themes";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
@@ -27,17 +29,24 @@ export function Nav() {
     <Box
       style={{
         backgroundColor: "var(--gray-1)",
-        borderBottom: "1px solid var(--gray-a6)",
+        borderBottom: "1px solid var(--gray-a4)",
         zIndex: 1,
+        padding: "12px 24px",
       }}
       position="sticky"
-      p="3"
       top="0"
     >
       <Flex gap="4" justify="between" align="center">
-        <Box flexGrow="1">
-          <Heading as="h1" size={{ initial: "4", xs: "6" }} truncate>
-            Solana React App{" "}
+        <Flex align="center" gap="2">
+          <Avatar
+            fallback="Z"
+            color="indigo"
+            radius="full"
+            size="3"
+            style={{ marginRight: "4px" }}
+          />
+          <Heading as="h1" size={{ initial: "4", xs: "5" }} truncate>
+            Z-Fubao{" "}
             {setChain ? (
               <DropdownMenu.Root>
                 <DropdownMenu.Trigger>{currentChainBadge}</DropdownMenu.Trigger>
@@ -58,23 +67,57 @@ export function Nav() {
               currentChainBadge
             )}
           </Heading>
-        </Box>
-        <Flex gap="2">
-          <Button asChild variant="soft">
-            <Link to="/">Home</Link>
-          </Button>
-          <Button asChild variant="soft">
-            <Link to="/deposit">Deposit</Link>
-          </Button>
-          <Button asChild variant="soft">
-            <Link to="/mint">Mint</Link>
-          </Button>
-          <Button asChild variant="soft">
-            <Link to="/earn">Earn</Link>
-          </Button>
         </Flex>
-        <ConnectWalletMenu>Connect Wallet</ConnectWalletMenu>
-        <SignInMenu>Sign In</SignInMenu>
+
+        <Flex gap="6" align="center">
+          <Flex gap="5" display={{ initial: "none", md: "flex" }}>
+            <Link
+              to="/"
+              style={{
+                color: "var(--gray-12)",
+                textDecoration: "none",
+                fontWeight: 500,
+              }}
+            >
+              Home
+            </Link>
+            <Link
+              to="/deposit"
+              style={{
+                color: "var(--gray-12)",
+                textDecoration: "none",
+                fontWeight: 500,
+              }}
+            >
+              Deposit
+            </Link>
+            <Link
+              to="/mint"
+              style={{
+                color: "var(--gray-12)",
+                textDecoration: "none",
+                fontWeight: 500,
+              }}
+            >
+              Mint
+            </Link>
+            <Link
+              to="/earn"
+              style={{
+                color: "var(--gray-12)",
+                textDecoration: "none",
+                fontWeight: 500,
+              }}
+            >
+              Earn
+            </Link>
+          </Flex>
+
+          <Flex gap="2">
+            <ConnectWalletMenu>Connect Wallet</ConnectWalletMenu>
+            <SignInMenu>Sign In</SignInMenu>
+          </Flex>
+        </Flex>
       </Flex>
     </Box>
   );
