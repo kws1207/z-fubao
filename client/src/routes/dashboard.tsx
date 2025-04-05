@@ -11,7 +11,11 @@ import {
   IconButton,
   Progress,
 } from "@radix-ui/themes";
-import { InfoCircledIcon, PlusIcon } from "@radix-ui/react-icons";
+import {
+  InfoCircledIcon,
+  PlusIcon,
+  ExternalLinkIcon,
+} from "@radix-ui/react-icons";
 import { useDashboardData } from "../hooks/useDashboardData";
 import { ChargeModal } from "../components/ChargeModal";
 import { useCharge } from "../hooks/useCharge";
@@ -141,9 +145,23 @@ interface VaultCardProps {
   amount: string;
   color: string;
   icon?: React.ReactNode;
+  link?: string;
 }
 
-function VaultCard({ title, percentage, apy, amount, color }: VaultCardProps) {
+function VaultCard({
+  title,
+  percentage,
+  apy,
+  amount,
+  color,
+  link,
+}: VaultCardProps) {
+  const handleCardClick = () => {
+    if (link) {
+      window.open(link, "_blank", "noopener,noreferrer");
+    }
+  };
+
   return (
     <Card
       style={{
@@ -154,6 +172,7 @@ function VaultCard({ title, percentage, apy, amount, color }: VaultCardProps) {
         boxShadow:
           "0 10px 25px -5px rgba(0, 0, 0, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.1)",
         transition: "transform 0.2s, box-shadow 0.2s",
+        cursor: link ? "pointer" : "default",
       }}
       onMouseEnter={(e) => {
         e.currentTarget.style.transform = "translateY(-5px)";
@@ -165,16 +184,37 @@ function VaultCard({ title, percentage, apy, amount, color }: VaultCardProps) {
         e.currentTarget.style.boxShadow =
           "0 10px 25px -5px rgba(0, 0, 0, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.1)";
       }}
+      onClick={handleCardClick}
     >
       <Flex direction="column" gap="3">
-        <Heading
-          size="4"
-          style={{
-            color: color,
-          }}
-        >
-          {title}
-        </Heading>
+        <Flex align="center" justify="between">
+          <Heading
+            size="4"
+            style={{
+              color: color,
+            }}
+          >
+            {title}
+          </Heading>
+          {link && (
+            <span
+              style={{
+                color: color,
+                display: "flex",
+                alignItems: "center",
+                transition: "transform 0.2s",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = "scale(1.2)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = "scale(1)";
+              }}
+            >
+              <ExternalLinkIcon width="18" height="18" />
+            </span>
+          )}
+        </Flex>
         <Box>
           <Flex justify="between" mb="1">
             <Text size="2" style={{ color: "var(--gray-12)" }}>
@@ -612,6 +652,7 @@ function Dashboard() {
                   apy={vaultData.drift.apy}
                   amount={vaultData.drift.amount}
                   color={vaultData.drift.color}
+                  link="https://app.drift.trade/vaults/strategy-vaults"
                 />
                 <VaultCard
                   title="Kamino Vault"
@@ -619,6 +660,7 @@ function Dashboard() {
                   apy={vaultData.kamino.apy}
                   amount={vaultData.kamino.amount}
                   color={vaultData.kamino.color}
+                  link="https://app.kamino.finance/liquidity?search=zbtc&filter=all&sort=tvl"
                 />
                 <VaultCard
                   title="zUSD Pool"
@@ -626,6 +668,7 @@ function Dashboard() {
                   apy={vaultData.zUSDPool.apy}
                   amount={vaultData.zUSDPool.amount}
                   color={vaultData.zUSDPool.color}
+                  link="https://www.orca.so/pools?tokens=zBTCug3er3tLyffELcvDNrKkCymbPWysGcWihESYfLg"
                 />
               </Grid>
             </Box>
