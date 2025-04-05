@@ -13,6 +13,7 @@ import {
 } from "@radix-ui/themes";
 import { InfoCircledIcon, PlusIcon } from "@radix-ui/react-icons";
 import { Link } from "react-router-dom";
+import { useWallets } from "@wallet-standard/react";
 
 interface AssetCardProps {
   label: string;
@@ -27,6 +28,12 @@ function AssetCard({
   change,
   isPositive = true,
 }: AssetCardProps) {
+  const [wallet] = useWallets();
+  const account = wallet?.accounts?.[0];
+
+  const displayValue = account ? value : "-";
+  const displayChange = account && change ? change : "-";
+
   return (
     <Card
       size="3"
@@ -95,7 +102,7 @@ function AssetCard({
             marginBottom: "4px",
           }}
         >
-          {value}
+          {displayValue}
         </Heading>
         {change && (
           <Text
@@ -105,8 +112,8 @@ function AssetCard({
               fontWeight: "medium",
             }}
           >
-            {isPositive ? "+" : ""}
-            {change}
+            {account ? (isPositive ? "+" : "") : ""}
+            {displayChange}
           </Text>
         )}
       </Flex>
@@ -124,6 +131,13 @@ interface VaultCardProps {
 }
 
 function VaultCard({ title, percentage, apy, amount, color }: VaultCardProps) {
+  const [wallet] = useWallets();
+  const account = wallet?.accounts?.[0];
+
+  const displayPercentage = account ? percentage : 0;
+  const displayApy = account ? apy : "-";
+  const displayAmount = account ? amount : "-";
+
   return (
     <Card
       style={{
@@ -161,10 +175,10 @@ function VaultCard({ title, percentage, apy, amount, color }: VaultCardProps) {
               Allocation
             </Text>
             <Text size="2" weight="bold" style={{ color: color }}>
-              {percentage}%
+              {account ? `${displayPercentage}%` : "-"}
             </Text>
           </Flex>
-          <Progress value={percentage} />
+          <Progress value={displayPercentage} />
         </Box>
         <Grid columns="2" gap="3" mt="2">
           <Box>
@@ -172,7 +186,7 @@ function VaultCard({ title, percentage, apy, amount, color }: VaultCardProps) {
               APY
             </Text>
             <Text size="3" weight="bold" style={{ color: color }}>
-              {apy}
+              {displayApy}
             </Text>
           </Box>
           <Box>
@@ -180,7 +194,7 @@ function VaultCard({ title, percentage, apy, amount, color }: VaultCardProps) {
               Amount
             </Text>
             <Text size="3" weight="bold" style={{ color: "var(--gray-12)" }}>
-              {amount}
+              {displayAmount}
             </Text>
           </Box>
         </Grid>
@@ -190,6 +204,9 @@ function VaultCard({ title, percentage, apy, amount, color }: VaultCardProps) {
 }
 
 function Dashboard() {
+  const [wallet] = useWallets();
+  const account = wallet?.accounts?.[0];
+
   return (
     <Box
       style={{
@@ -198,7 +215,6 @@ function Dashboard() {
         minHeight: "100vh",
       }}
     >
-      {/* Dashboard Header */}
       <Section
         size="3"
         style={{
@@ -250,7 +266,6 @@ function Dashboard() {
         </Container>
       </Section>
 
-      {/* Assets Section */}
       <Section
         size="3"
         style={{
@@ -291,7 +306,6 @@ function Dashboard() {
         </Container>
       </Section>
 
-      {/* Yield Section */}
       <Section
         size="3"
         style={{
@@ -342,7 +356,7 @@ function Dashboard() {
                     WebkitTextFillColor: "transparent",
                   }}
                 >
-                  $1,245.65
+                  {account ? "$1,245.65" : "-"}
                 </Heading>
                 <Text style={{ color: "var(--gray-11)" }}>
                   Since January 2025
@@ -377,10 +391,10 @@ function Dashboard() {
                     WebkitTextFillColor: "transparent",
                   }}
                 >
-                  15.2%
+                  {account ? "15.2%" : "-"}
                 </Heading>
                 <Text style={{ color: "var(--jade-11)" }}>
-                  +2.3% from last month
+                  {account ? "+2.3% from last month" : "-"}
                 </Text>
               </Flex>
             </Card>
@@ -388,7 +402,6 @@ function Dashboard() {
         </Container>
       </Section>
 
-      {/* Staked zUSD Management */}
       <Section
         size="3"
         style={{
@@ -421,7 +434,7 @@ function Dashboard() {
               title="Drift Vault"
               percentage={45}
               apy="16.8%"
-              amount="$3,744"
+              amount="$3,741"
               color="rgba(147, 51, 234, 0.9)"
             />
             <VaultCard
@@ -442,7 +455,6 @@ function Dashboard() {
         </Container>
       </Section>
 
-      {/* Action Buttons */}
       <Section
         size="3"
         style={{
