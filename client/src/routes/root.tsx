@@ -118,8 +118,11 @@ function Root() {
           paddingBottom: "80px",
         }}
       >
-        <Container mx="auto" size="3">
-          <Grid columns={{ initial: "1", md: "2" }} gap="6">
+        <Container mx="auto" size="3" style={{ padding: "0 48px" }}>
+          <Grid
+            columns={{ initial: "1", md: "2" }}
+            gap={{ initial: "6", md: "24" }}
+          >
             {/* Left: Text content */}
             <Flex direction="column" justify="center" gap="6">
               <Heading
@@ -134,10 +137,23 @@ function Root() {
                   lineHeight: "1.1",
                 }}
               >
-                Multichain dApps
-                <br />
-                Made Seamless
+                Earn, Pay, and Live with your Bitcoin
               </Heading>
+
+              <Text
+                size={{ initial: "7", xs: "7" }}
+                style={{
+                  maxWidth: "800px",
+                  background:
+                    "linear-gradient(90deg, var(--indigo-9), var(--purple-9))",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  fontWeight: "500",
+                  marginTop: "-8px",
+                }}
+              >
+                Powered by zBTC
+              </Text>
 
               <Text
                 size={{ initial: "4", xs: "5" }}
@@ -146,8 +162,8 @@ function Root() {
                   color: "var(--gray-11)",
                 }}
               >
-                Multi-chain Layer on Solana: z-fubao enables interaction across
-                leading blockchain ecosystems
+                zUSD: the foremost yield-bearing stablecoin on Solana. Fully
+                backed by Bitcoin.
               </Text>
 
               <Flex gap="4" mt="4">
@@ -184,7 +200,13 @@ function Root() {
             </Flex>
 
             {/* Right: Visual element */}
-            <Box style={{ position: "relative", minHeight: "300px" }}>
+            <Box
+              style={{
+                position: "relative",
+                minHeight: "300px",
+                marginLeft: "40px",
+              }}
+            >
               <Box
                 style={{
                   position: "absolute",
@@ -478,6 +500,7 @@ function Root() {
                 </Heading>
                 <Text style={{ color: "var(--gray-11)" }}>
                   Convert BTC to zBTC or zUSD to szUSD to earn staking rewards
+                  up to 15%
                 </Text>
               </Flex>
             </Card>
@@ -510,10 +533,10 @@ function Root() {
                     color: "var(--blue-11)",
                   }}
                 >
-                  Solana Wallet Support
+                  Solana and Bitcoin Wallet Support
                 </Heading>
                 <Text style={{ color: "var(--gray-11)" }}>
-                  Connect your Solana wallet to view balance and manage assets
+                  50+ Solana and Bitcoin Wallets Supported
                 </Text>
               </Flex>
             </Card>
@@ -546,10 +569,11 @@ function Root() {
                     color: "var(--pink-11)",
                   }}
                 >
-                  Multi-Chain Integration
+                  PayFi to Reality
                 </Heading>
                 <Text style={{ color: "var(--gray-11)" }}>
-                  Interact with multiple blockchain ecosystems seamlessly
+                  No more fiat needed. Use your Bitcoin yield to pay in real
+                  life.
                 </Text>
               </Flex>
             </Card>
