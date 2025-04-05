@@ -38,11 +38,13 @@ git clone https://github.com/yourusername/z-fubao.git
 cd z-fubao
 
 # Build Solana programs
-cd program/vault
-cargo build-bpf
+cd program/z-fubao
+cargo build-sbf
 
-cd ../stake
-cargo build-bpf
+# Deploy the program
+solana config set --url https://api.devnet.solana.com # Set to devnet
+solana airdrop 2 # Request some SOL for deployment
+solana program deploy ../target/sbpf-solana-solana/release/z_fubao.so
 
 # Set up the client application
 cd ../../client
