@@ -1,5 +1,6 @@
 import { StakePanel } from "../components/ConvertPanel";
 import { Box, Container, Flex, Heading, Section, Text } from "@radix-ui/themes";
+import { Footer } from "../components/Footer";
 
 function Deposit() {
   return (
@@ -7,7 +8,10 @@ function Deposit() {
       style={{
         background: "linear-gradient(135deg, var(--indigo-1), var(--purple-1))",
         color: "var(--gray-12)",
-        minHeight: "100vh",
+        minHeight: "calc(100vh - 60px)",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
       }}
     >
       <Section
@@ -65,6 +69,7 @@ function Deposit() {
           <StakePanel mode="btc" label="Native BTC" />
         </Container>
       </Section>
+      <Footer />
     </Box>
   );
 }

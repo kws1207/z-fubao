@@ -23,6 +23,7 @@ export function Nav() {
         borderBottom: "1px solid var(--gray-a4)",
         zIndex: 1,
         padding: "12px 24px",
+        height: "60px",
       }}
       position="sticky"
       top="0"
@@ -31,7 +32,6 @@ export function Nav() {
         <Flex align="center" gap="2">
           <svg
             width="80"
-            height="80"
             viewBox="0 0 144 38"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
