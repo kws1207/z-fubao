@@ -232,7 +232,7 @@ export function StakePanel({ mode, label }: { mode: Mode; label: string }) {
               ? `${operationString}...`
               : selectedWalletAccount
               ? operationString
-              : "Connect Wallet to ${operationString}"}
+              : `Connect Wallet to ${operationString}`}
           </Button>
         </Flex>
       </Box>

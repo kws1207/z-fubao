@@ -15,8 +15,6 @@ import { Balance } from "../components/Balance";
 import { WalletAccountIcon } from "../components/WalletAccountIcon";
 import { ChainContext } from "../context/ChainContext";
 import { SelectedWalletAccountContext } from "../context/SelectedWalletAccountContext";
-import { StakePanel } from "../components/ConvertPanel";
-import { LockAndMintPanel } from "../components/LockAndMintPanel";
 
 function Root() {
   const { chain } = useContext(ChainContext);

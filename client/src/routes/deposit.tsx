@@ -1,10 +1,17 @@
 import { StakePanel } from "../components/ConvertPanel";
-
+import { Container } from "@radix-ui/themes";
 function Deposit() {
   return (
-    <div>
+    <Container
+      mx="auto"
+      style={{
+        padding: "20px",
+        display: "flex",
+        justifyContent: "center",
+      }}
+    >
       <StakePanel mode="btc" label="Native BTC" />
-    </div>
+    </Container>
   );
 }
 

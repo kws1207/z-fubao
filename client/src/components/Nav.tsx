@@ -7,13 +7,10 @@ import {
   Heading,
 } from "@radix-ui/themes";
 import { useContext } from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ChainContext } from "../context/ChainContext";
 import { ConnectWalletMenu } from "./ConnectWalletMenu";
 import { SignInMenu } from "./SignInMenu";
-import Mint from "../routes/mint";
-import Earn from "../routes/earn";
-import Deposit from "../routes/deposit";
 
 export function Nav() {
   const {
