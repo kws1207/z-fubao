@@ -13,7 +13,7 @@ import {
 } from "@radix-ui/themes";
 import { InfoCircledIcon, PlusIcon } from "@radix-ui/react-icons";
 import { Link } from "react-router-dom";
-import { useWallets } from "@wallet-standard/react";
+import { useDashboardData } from "../hooks/useDashboardData";
 
 interface AssetCardProps {
   label: string;
@@ -28,12 +28,6 @@ function AssetCard({
   change,
   isPositive = true,
 }: AssetCardProps) {
-  const [wallet] = useWallets();
-  const account = wallet?.accounts?.[0];
-
-  const displayValue = account ? value : "-";
-  const displayChange = account && change ? change : "-";
-
   return (
     <Card
       size="3"
@@ -102,7 +96,7 @@ function AssetCard({
             marginBottom: "4px",
           }}
         >
-          {displayValue}
+          {value}
         </Heading>
         {change && (
           <Text
@@ -112,8 +106,8 @@ function AssetCard({
               fontWeight: "medium",
             }}
           >
-            {account ? (isPositive ? "+" : "") : ""}
-            {displayChange}
+            {value !== "-" ? (isPositive ? "+" : "") : ""}
+            {change}
           </Text>
         )}
       </Flex>
@@ -131,13 +125,6 @@ interface VaultCardProps {
 }
 
 function VaultCard({ title, percentage, apy, amount, color }: VaultCardProps) {
-  const [wallet] = useWallets();
-  const account = wallet?.accounts?.[0];
-
-  const displayPercentage = account ? percentage : 0;
-  const displayApy = account ? apy : "-";
-  const displayAmount = account ? amount : "-";
-
   return (
     <Card
       style={{
@@ -175,10 +162,10 @@ function VaultCard({ title, percentage, apy, amount, color }: VaultCardProps) {
               Allocation
             </Text>
             <Text size="2" weight="bold" style={{ color: color }}>
-              {account ? `${displayPercentage}%` : "-"}
+              {percentage > 0 ? `${percentage}%` : "-"}
             </Text>
           </Flex>
-          <Progress value={displayPercentage} />
+          <Progress value={percentage} />
         </Box>
         <Grid columns="2" gap="3" mt="2">
           <Box>
@@ -186,7 +173,7 @@ function VaultCard({ title, percentage, apy, amount, color }: VaultCardProps) {
               APY
             </Text>
             <Text size="3" weight="bold" style={{ color: color }}>
-              {displayApy}
+              {apy}
             </Text>
           </Box>
           <Box>
@@ -194,7 +181,7 @@ function VaultCard({ title, percentage, apy, amount, color }: VaultCardProps) {
               Amount
             </Text>
             <Text size="3" weight="bold" style={{ color: "var(--gray-12)" }}>
-              {displayAmount}
+              {amount}
             </Text>
           </Box>
         </Grid>
@@ -204,8 +191,7 @@ function VaultCard({ title, percentage, apy, amount, color }: VaultCardProps) {
 }
 
 function Dashboard() {
-  const [wallet] = useWallets();
-  const account = wallet?.accounts?.[0];
+  const { isConnected, assetData, yieldData, vaultData } = useDashboardData();
 
   return (
     <Box
@@ -286,21 +272,21 @@ function Dashboard() {
           <Grid columns={{ initial: "1", sm: "3" }} gap="6">
             <AssetCard
               label="zBTC Balance"
-              value="1.25 BTC"
-              change="0.05 BTC (4.2%)"
-              isPositive={true}
+              value={assetData.zBTC.value}
+              change={assetData.zBTC.change}
+              isPositive={assetData.zBTC.isPositive}
             />
             <AssetCard
               label="zUSD Balance"
-              value="$15,750"
-              change="$750 (5.0%)"
-              isPositive={true}
+              value={assetData.zUSD.value}
+              change={assetData.zUSD.change}
+              isPositive={assetData.zUSD.isPositive}
             />
             <AssetCard
               label="szUSD Balance"
-              value="$8,320"
-              change="$320 (4.0%)"
-              isPositive={true}
+              value={assetData.szUSD.value}
+              change={assetData.szUSD.change}
+              isPositive={assetData.szUSD.isPositive}
             />
           </Grid>
         </Container>
@@ -356,7 +342,7 @@ function Dashboard() {
                     WebkitTextFillColor: "transparent",
                   }}
                 >
-                  {account ? "$1,245.65" : "-"}
+                  {yieldData.totalYield}
                 </Heading>
                 <Text style={{ color: "var(--gray-11)" }}>
                   Since January 2025
@@ -391,10 +377,10 @@ function Dashboard() {
                     WebkitTextFillColor: "transparent",
                   }}
                 >
-                  {account ? "15.2%" : "-"}
+                  {yieldData.currentAPY}
                 </Heading>
                 <Text style={{ color: "var(--jade-11)" }}>
-                  {account ? "+2.3% from last month" : "-"}
+                  {yieldData.changeFromLastMonth}
                 </Text>
               </Flex>
             </Card>
@@ -429,27 +415,157 @@ function Dashboard() {
             Your staked zUSD is distributed across multiple vaults to optimize
             yield and minimize risk.
           </Text>
+
+          <Card
+            size="3"
+            style={{
+              background: "rgba(255, 255, 255, 0.7)",
+              border: "1px solid rgba(99, 102, 241, 0.2)",
+              borderRadius: "16px",
+              padding: "24px",
+              marginBottom: "24px",
+              boxShadow:
+                "0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02)",
+            }}
+          >
+            <Flex direction="column" gap="3">
+              <Text size="2" weight="bold" style={{ color: "var(--gray-11)" }}>
+                Relative Allocation
+              </Text>
+              <Box>
+                {isConnected ? (
+                  <>
+                    <Box
+                      style={{
+                        height: "20px",
+                        width: "100%",
+                        background: "var(--gray-3)",
+                        borderRadius: "10px",
+                        overflow: "hidden",
+                        display: "flex",
+                      }}
+                    >
+                      <Box
+                        style={{
+                          height: "100%",
+                          width: `${vaultData.drift.percentage}%`,
+                          background: vaultData.drift.color,
+                          borderRadius: "10px 0 0 10px",
+                        }}
+                      />
+                      <Box
+                        style={{
+                          height: "100%",
+                          width: `${vaultData.kamino.percentage}%`,
+                          background: vaultData.kamino.color,
+                        }}
+                      />
+                      <Box
+                        style={{
+                          height: "100%",
+                          width: `${vaultData.zUSDPool.percentage}%`,
+                          background: vaultData.zUSDPool.color,
+                          borderRadius: "0 10px 10px 0",
+                        }}
+                      />
+                    </Box>
+
+                    <Flex justify="between" mt="3">
+                      <Text size="1" style={{ color: "var(--gray-9)" }}>
+                        0%
+                      </Text>
+                      <Text size="1" style={{ color: "var(--gray-9)" }}>
+                        25%
+                      </Text>
+                      <Text size="1" style={{ color: "var(--gray-9)" }}>
+                        50%
+                      </Text>
+                      <Text size="1" style={{ color: "var(--gray-9)" }}>
+                        75%
+                      </Text>
+                      <Text size="1" style={{ color: "var(--gray-9)" }}>
+                        100%
+                      </Text>
+                    </Flex>
+
+                    <Flex justify="center" gap="4" mt="3">
+                      <Flex align="center" gap="1">
+                        <Box
+                          style={{
+                            width: "10px",
+                            height: "10px",
+                            background: vaultData.drift.color,
+                            borderRadius: "2px",
+                          }}
+                        />
+                        <Text size="1" style={{ color: vaultData.drift.color }}>
+                          Drift ({vaultData.drift.percentage}%)
+                        </Text>
+                      </Flex>
+                      <Flex align="center" gap="1">
+                        <Box
+                          style={{
+                            width: "10px",
+                            height: "10px",
+                            background: vaultData.kamino.color,
+                            borderRadius: "2px",
+                          }}
+                        />
+                        <Text
+                          size="1"
+                          style={{ color: vaultData.kamino.color }}
+                        >
+                          Kamino ({vaultData.kamino.percentage}%)
+                        </Text>
+                      </Flex>
+                      <Flex align="center" gap="1">
+                        <Box
+                          style={{
+                            width: "10px",
+                            height: "10px",
+                            background: vaultData.zUSDPool.color,
+                            borderRadius: "2px",
+                          }}
+                        />
+                        <Text
+                          size="1"
+                          style={{ color: vaultData.zUSDPool.color }}
+                        >
+                          zUSD ({vaultData.zUSDPool.percentage}%)
+                        </Text>
+                      </Flex>
+                    </Flex>
+                  </>
+                ) : (
+                  <Text style={{ color: "var(--gray-9)" }}>
+                    Connect wallet to view allocation distribution
+                  </Text>
+                )}
+              </Box>
+            </Flex>
+          </Card>
+
           <Grid columns={{ initial: "1", sm: "3" }} gap="6">
             <VaultCard
               title="Drift Vault"
-              percentage={45}
-              apy="16.8%"
-              amount="$3,741"
-              color="rgba(147, 51, 234, 0.9)"
+              percentage={vaultData.drift.percentage}
+              apy={vaultData.drift.apy}
+              amount={vaultData.drift.amount}
+              color={vaultData.drift.color}
             />
             <VaultCard
               title="Kamino Vault"
-              percentage={35}
-              apy="14.5%"
-              amount="$2,912"
-              color="rgba(59, 130, 246, 0.9)"
+              percentage={vaultData.kamino.percentage}
+              apy={vaultData.kamino.apy}
+              amount={vaultData.kamino.amount}
+              color={vaultData.kamino.color}
             />
             <VaultCard
               title="zUSD Pool"
-              percentage={20}
-              apy="12.3%"
-              amount="$1,664"
-              color="rgba(236, 72, 153, 0.9)"
+              percentage={vaultData.zUSDPool.percentage}
+              apy={vaultData.zUSDPool.apy}
+              amount={vaultData.zUSDPool.amount}
+              color={vaultData.zUSDPool.color}
             />
           </Grid>
         </Container>
