@@ -91,7 +91,7 @@ function MetricCard({ label, value, description }: MetricCardProps) {
           {value}
         </Heading>
         {description && (
-          <Text size="2" style={{ color: "var(--gray-11)" }}>
+          <Text size="2" style={{ color: "var(--gray-12)" }}>
             {description}
           </Text>
         )}
@@ -158,7 +158,7 @@ function Root() {
                 size={{ initial: "4", xs: "5" }}
                 style={{
                   maxWidth: "600px",
-                  color: "var(--gray-11)",
+                  color: "var(--gray-12)",
                 }}
               >
                 zUSD: the foremost yield-bearing stablecoin on Solana. Fully
@@ -191,7 +191,7 @@ function Root() {
                     to="/mint"
                     style={{ color: "inherit", textDecoration: "none" }}
                   >
-                    Launch App
+                    Deposit Now
                     <ExternalLinkIcon style={{ marginLeft: "4px" }} />
                   </Link>
                 </Button>
@@ -460,7 +460,7 @@ function Root() {
                 >
                   Asset Locking & Minting
                 </Heading>
-                <Text style={{ color: "var(--gray-8)" }}>
+                <Text style={{ color: "var(--gray-12)" }}>
                   Lock zBTC as collateral and mint zUSD with a 70% LTV ratio
                 </Text>
               </Flex>
@@ -496,7 +496,7 @@ function Root() {
                 >
                   Staking Rewards
                 </Heading>
-                <Text style={{ color: "var(--gray-8)" }}>
+                <Text style={{ color: "var(--gray-12)" }}>
                   Convert BTC to zBTC or zUSD to szUSD to earn staking rewards
                   up to 15%
                 </Text>
@@ -533,7 +533,7 @@ function Root() {
                 >
                   Solana and Bitcoin Wallet Support
                 </Heading>
-                <Text style={{ color: "var(--gray-8)" }}>
+                <Text style={{ color: "var(--gray-12)" }}>
                   50+ Solana and Bitcoin Wallets Supported
                 </Text>
               </Flex>
@@ -569,7 +569,7 @@ function Root() {
                 >
                   PayFi to Reality
                 </Heading>
-                <Text style={{ color: "var(--gray-8)" }}>
+                <Text style={{ color: "var(--gray-12)" }}>
                   No more fiat needed. Use your Bitcoin yield to pay
                 </Text>
               </Flex>
@@ -605,7 +605,7 @@ function Root() {
             <Text
               size="4"
               style={{
-                color: "var(--gray-11)",
+                color: "var(--gray-12)",
                 textAlign: "center",
                 maxWidth: "600px",
                 margin: "0 auto",
@@ -639,7 +639,7 @@ function Root() {
                 to="/mint"
                 style={{ color: "inherit", textDecoration: "none" }}
               >
-                Launch App
+                Deposit Now
               </Link>
             </Button>
           </Flex>
@@ -657,7 +657,7 @@ function Root() {
       >
         <Container size="3">
           <Flex justify="between" align="center" wrap="wrap" gap="4">
-            <Text style={{ color: "var(--gray-11)" }}>
+            <Text style={{ color: "var(--gray-12)" }}>
               © 2025 z-fubao. All rights reserved.
             </Text>
             <Flex gap="4">

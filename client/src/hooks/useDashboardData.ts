@@ -34,19 +34,19 @@ export const useDashboardData = () => {
       percentage: isConnected ? 45 : 0,
       apy: isConnected ? "16.8%" : "-",
       amount: isConnected ? "$3,741" : "-",
-      color: "rgba(147, 51, 234, 0.9)",
+      color: "var(--indigo-11)",
     },
     kamino: {
       percentage: isConnected ? 35 : 0,
       apy: isConnected ? "14.5%" : "-",
       amount: isConnected ? "$2,912" : "-",
-      color: "rgba(59, 130, 246, 0.9)",
+      color: "var(--purple-11)",
     },
     zUSDPool: {
       percentage: isConnected ? 20 : 0,
       apy: isConnected ? "12.3%" : "-",
       amount: isConnected ? "$1,664" : "-",
-      color: "rgba(236, 72, 153, 0.9)",
+      color: "var(--violet-11)",
     },
   };
 
