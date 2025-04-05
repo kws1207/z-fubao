@@ -8,7 +8,7 @@ function Mint() {
       style={{
         background: "linear-gradient(135deg, var(--indigo-1), var(--purple-1))",
         color: "var(--gray-12)",
-        minHeight: "calc(100vh - 60px)",
+        minHeight: "calc(100vh - 80px)",
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",

@@ -3,7 +3,6 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { ChainContext } from "../context/ChainContext";
 import { ConnectWalletMenu } from "./ConnectWalletMenu";
-import { SignInMenu } from "./SignInMenu";
 
 export function Nav() {
   const {
