@@ -104,7 +104,7 @@ function Root() {
   return (
     <Box
       style={{
-        background: "linear-gradient(135deg, var(--indigo-1), var(--purple-1))",
+        background: "linear-gradient(135deg, var(--gray-2), var(--gray-1))",
         color: "var(--gray-12)",
       }}
     >
@@ -112,8 +112,7 @@ function Root() {
       <Section
         size="3"
         style={{
-          background:
-            "linear-gradient(135deg, var(--indigo-2), var(--purple-2))",
+          background: "linear-gradient(135deg, var(--gray-1), var(--gray-2))",
           paddingTop: "80px",
           paddingBottom: "80px",
         }}
@@ -366,11 +365,11 @@ function Root() {
         size="3"
         style={{
           background:
-            "linear-gradient(180deg, var(--indigo-1) 0%, var(--gray-1) 100%)",
+            "linear-gradient(180deg, var(--gray-2) 0%, var(--gray-1) 100%)",
           paddingTop: "40px",
           paddingBottom: "60px",
-          borderTop: "1px solid rgba(79, 70, 229, 0.1)",
-          borderBottom: "1px solid rgba(79, 70, 229, 0.1)",
+          borderTop: "1px solid rgba(79, 70, 229, 0.2)",
+          borderBottom: "1px solid rgba(79, 70, 229, 0.2)",
         }}
       >
         <Container mx="auto" size="3">
@@ -410,8 +409,7 @@ function Root() {
       <Section
         size="3"
         style={{
-          background:
-            "linear-gradient(135deg, var(--indigo-1), var(--purple-1))",
+          background: "linear-gradient(135deg, var(--gray-2), var(--gray-1))",
           paddingTop: "60px",
           paddingBottom: "80px",
         }}
@@ -434,35 +432,35 @@ function Root() {
           <Grid columns={{ initial: "1", sm: "2" }} gap="6">
             <Card
               style={{
-                background: "rgba(255, 255, 255, 0.7)",
-                border: "1px solid rgba(99, 102, 241, 0.2)",
+                background: "rgba(25, 25, 28, 0.8)",
+                border: "1px solid rgba(99, 102, 241, 0.3)",
                 borderRadius: "16px",
                 padding: "24px",
                 boxShadow:
-                  "0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02)",
+                  "0 10px 25px -5px rgba(0, 0, 0, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.1)",
                 transition: "transform 0.2s, box-shadow 0.2s",
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = "translateY(-5px)";
                 e.currentTarget.style.boxShadow =
-                  "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -6px rgba(0, 0, 0, 0.04)";
+                  "0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -6px rgba(0, 0, 0, 0.2)";
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = "none";
                 e.currentTarget.style.boxShadow =
-                  "0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02)";
+                  "0 10px 25px -5px rgba(0, 0, 0, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.1)";
               }}
             >
               <Flex direction="column" gap="3">
                 <Heading
                   size="4"
                   style={{
-                    color: "var(--indigo-11)",
+                    color: "var(--indigo-9)",
                   }}
                 >
                   Asset Locking & Minting
                 </Heading>
-                <Text style={{ color: "var(--gray-11)" }}>
+                <Text style={{ color: "var(--gray-8)" }}>
                   Lock zBTC as collateral and mint zUSD with a 70% LTV ratio
                 </Text>
               </Flex>
@@ -470,35 +468,35 @@ function Root() {
 
             <Card
               style={{
-                background: "rgba(255, 255, 255, 0.7)",
-                border: "1px solid rgba(147, 51, 234, 0.2)",
+                background: "rgba(25, 25, 28, 0.8)",
+                border: "1px solid rgba(147, 51, 234, 0.3)",
                 borderRadius: "16px",
                 padding: "24px",
                 boxShadow:
-                  "0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02)",
+                  "0 10px 25px -5px rgba(0, 0, 0, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.1)",
                 transition: "transform 0.2s, box-shadow 0.2s",
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = "translateY(-5px)";
                 e.currentTarget.style.boxShadow =
-                  "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -6px rgba(0, 0, 0, 0.04)";
+                  "0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -6px rgba(0, 0, 0, 0.2)";
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = "none";
                 e.currentTarget.style.boxShadow =
-                  "0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02)";
+                  "0 10px 25px -5px rgba(0, 0, 0, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.1)";
               }}
             >
               <Flex direction="column" gap="3">
                 <Heading
                   size="4"
                   style={{
-                    color: "var(--purple-11)",
+                    color: "var(--purple-9)",
                   }}
                 >
                   Staking Rewards
                 </Heading>
-                <Text style={{ color: "var(--gray-11)" }}>
+                <Text style={{ color: "var(--gray-8)" }}>
                   Convert BTC to zBTC or zUSD to szUSD to earn staking rewards
                   up to 15%
                 </Text>
@@ -507,35 +505,35 @@ function Root() {
 
             <Card
               style={{
-                background: "rgba(255, 255, 255, 0.7)",
-                border: "1px solid rgba(59, 130, 246, 0.2)",
+                background: "rgba(25, 25, 28, 0.8)",
+                border: "1px solid rgba(59, 130, 246, 0.3)",
                 borderRadius: "16px",
                 padding: "24px",
                 boxShadow:
-                  "0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02)",
+                  "0 10px 25px -5px rgba(0, 0, 0, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.1)",
                 transition: "transform 0.2s, box-shadow 0.2s",
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = "translateY(-5px)";
                 e.currentTarget.style.boxShadow =
-                  "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -6px rgba(0, 0, 0, 0.04)";
+                  "0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -6px rgba(0, 0, 0, 0.2)";
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = "none";
                 e.currentTarget.style.boxShadow =
-                  "0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02)";
+                  "0 10px 25px -5px rgba(0, 0, 0, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.1)";
               }}
             >
               <Flex direction="column" gap="3">
                 <Heading
                   size="4"
                   style={{
-                    color: "var(--blue-11)",
+                    color: "var(--blue-9)",
                   }}
                 >
                   Solana and Bitcoin Wallet Support
                 </Heading>
-                <Text style={{ color: "var(--gray-11)" }}>
+                <Text style={{ color: "var(--gray-8)" }}>
                   50+ Solana and Bitcoin Wallets Supported
                 </Text>
               </Flex>
@@ -543,37 +541,36 @@ function Root() {
 
             <Card
               style={{
-                background: "rgba(255, 255, 255, 0.7)",
-                border: "1px solid rgba(236, 72, 153, 0.2)",
+                background: "rgba(25, 25, 28, 0.8)",
+                border: "1px solid rgba(236, 72, 153, 0.3)",
                 borderRadius: "16px",
                 padding: "24px",
                 boxShadow:
-                  "0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02)",
+                  "0 10px 25px -5px rgba(0, 0, 0, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.1)",
                 transition: "transform 0.2s, box-shadow 0.2s",
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = "translateY(-5px)";
                 e.currentTarget.style.boxShadow =
-                  "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -6px rgba(0, 0, 0, 0.04)";
+                  "0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -6px rgba(0, 0, 0, 0.2)";
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = "none";
                 e.currentTarget.style.boxShadow =
-                  "0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02)";
+                  "0 10px 25px -5px rgba(0, 0, 0, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.1)";
               }}
             >
               <Flex direction="column" gap="3">
                 <Heading
                   size="4"
                   style={{
-                    color: "var(--pink-11)",
+                    color: "var(--pink-9)",
                   }}
                 >
                   PayFi to Reality
                 </Heading>
-                <Text style={{ color: "var(--gray-11)" }}>
-                  No more fiat needed. Use your Bitcoin yield to pay in real
-                  life.
+                <Text style={{ color: "var(--gray-8)" }}>
+                  No more fiat needed. Use your Bitcoin yield to pay
                 </Text>
               </Flex>
             </Card>
@@ -585,11 +582,10 @@ function Root() {
       <Section
         size="3"
         style={{
-          background:
-            "linear-gradient(135deg, var(--indigo-2), var(--purple-2))",
+          background: "linear-gradient(135deg, var(--gray-1), var(--gray-2))",
           paddingTop: "60px",
           paddingBottom: "80px",
-          borderTop: "1px solid rgba(99, 102, 241, 0.2)",
+          borderTop: "1px solid rgba(99, 102, 241, 0.3)",
         }}
       >
         <Container mx="auto" size="3">
@@ -653,8 +649,8 @@ function Root() {
       {/* Footer */}
       <Box
         style={{
-          background: "var(--gray-1)",
-          borderTop: "1px solid var(--gray-4)",
+          background: "var(--gray-2)",
+          borderTop: "1px solid var(--gray-3)",
           paddingTop: "40px",
           paddingBottom: "40px",
         }}

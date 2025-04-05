@@ -130,23 +130,23 @@ function VaultCard({ title, percentage, apy, amount, color }: VaultCardProps) {
   return (
     <Card
       style={{
-        background: "rgba(255, 255, 255, 0.7)",
+        background: "rgba(25, 25, 28, 0.8)",
         border: `1px solid ${color}`,
         borderRadius: "16px",
         padding: "24px",
         boxShadow:
-          "0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02)",
+          "0 10px 25px -5px rgba(0, 0, 0, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.1)",
         transition: "transform 0.2s, box-shadow 0.2s",
       }}
       onMouseEnter={(e) => {
         e.currentTarget.style.transform = "translateY(-5px)";
         e.currentTarget.style.boxShadow =
-          "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -6px rgba(0, 0, 0, 0.04)";
+          "0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -6px rgba(0, 0, 0, 0.2)";
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.transform = "none";
         e.currentTarget.style.boxShadow =
-          "0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02)";
+          "0 10px 25px -5px rgba(0, 0, 0, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.1)";
       }}
     >
       <Flex direction="column" gap="3">
@@ -160,7 +160,7 @@ function VaultCard({ title, percentage, apy, amount, color }: VaultCardProps) {
         </Heading>
         <Box>
           <Flex justify="between" mb="1">
-            <Text size="2" style={{ color: "var(--gray-11)" }}>
+            <Text size="2" style={{ color: "var(--gray-8)" }}>
               Allocation
             </Text>
             <Text size="2" weight="bold" style={{ color: color }}>
@@ -171,7 +171,7 @@ function VaultCard({ title, percentage, apy, amount, color }: VaultCardProps) {
         </Box>
         <Grid columns="2" gap="3" mt="2">
           <Box>
-            <Text size="2" style={{ color: "var(--gray-11)" }}>
+            <Text size="2" style={{ color: "var(--gray-8)" }}>
               APY
             </Text>
             <Text size="3" weight="bold" style={{ color: color }}>
@@ -179,10 +179,10 @@ function VaultCard({ title, percentage, apy, amount, color }: VaultCardProps) {
             </Text>
           </Box>
           <Box>
-            <Text size="2" style={{ color: "var(--gray-11)" }}>
+            <Text size="2" style={{ color: "var(--gray-8)" }}>
               Amount
             </Text>
-            <Text size="3" weight="bold" style={{ color: "var(--gray-12)" }}>
+            <Text size="3" weight="bold" style={{ color: "var(--gray-9)" }}>
               {amount}
             </Text>
           </Box>
@@ -205,7 +205,7 @@ function Dashboard() {
   return (
     <Box
       style={{
-        background: "linear-gradient(135deg, var(--indigo-1), var(--purple-1))",
+        background: "linear-gradient(135deg, var(--gray-2), var(--gray-1))",
         color: "var(--gray-12)",
         minHeight: "100vh",
       }}
@@ -213,8 +213,7 @@ function Dashboard() {
       <Section
         size="3"
         style={{
-          background:
-            "linear-gradient(135deg, var(--indigo-2), var(--purple-2))",
+          background: "linear-gradient(135deg, var(--gray-1), var(--gray-2))",
           paddingTop: "40px",
           paddingBottom: "40px",
         }}
@@ -417,7 +416,7 @@ function Dashboard() {
             size="5"
             style={{
               marginBottom: "24px",
-              color: "var(--indigo-10)",
+              color: "var(--indigo-9)",
             }}
           >
             Staked zUSD Management
@@ -425,7 +424,7 @@ function Dashboard() {
           <Text
             size="3"
             style={{
-              color: "var(--gray-11)",
+              color: "var(--gray-8)",
               marginBottom: "24px",
             }}
           >
@@ -436,17 +435,17 @@ function Dashboard() {
           <Card
             size="3"
             style={{
-              background: "rgba(255, 255, 255, 0.7)",
-              border: "1px solid rgba(99, 102, 241, 0.2)",
+              background: "rgba(25, 25, 28, 0.8)",
+              border: "1px solid rgba(99, 102, 241, 0.3)",
               borderRadius: "16px",
               padding: "24px",
               marginBottom: "24px",
               boxShadow:
-                "0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02)",
+                "0 10px 25px -5px rgba(0, 0, 0, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.1)",
             }}
           >
             <Flex direction="column" gap="3">
-              <Text size="2" weight="bold" style={{ color: "var(--gray-11)" }}>
+              <Text size="2" weight="bold" style={{ color: "var(--gray-8)" }}>
                 Relative Allocation
               </Text>
               <Box>
@@ -456,7 +455,7 @@ function Dashboard() {
                       style={{
                         height: "20px",
                         width: "100%",
-                        background: "var(--gray-3)",
+                        background: "var(--gray-4)",
                         borderRadius: "10px",
                         overflow: "hidden",
                         display: "flex",
@@ -591,11 +590,10 @@ function Dashboard() {
       <Section
         size="3"
         style={{
-          background:
-            "linear-gradient(135deg, var(--indigo-2), var(--purple-2))",
+          background: "linear-gradient(135deg, var(--gray-1), var(--gray-2))",
           paddingTop: "40px",
           paddingBottom: "60px",
-          borderTop: "1px solid rgba(99, 102, 241, 0.2)",
+          borderTop: "1px solid rgba(99, 102, 241, 0.3)",
         }}
       >
         <Container mx="auto" size="3">

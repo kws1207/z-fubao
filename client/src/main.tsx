@@ -20,7 +20,7 @@ const rootNode = document.getElementById("root")!;
 const root = createRoot(rootNode);
 root.render(
   <StrictMode>
-    <Theme>
+    <Theme appearance="dark">
       <Router>
         <ChainContextProvider>
           <SelectedWalletAccountContextProvider>
