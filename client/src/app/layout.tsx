@@ -16,16 +16,16 @@ import "./globals.scss";
 import "./design-system.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://orpheus.zeuslayer.dev"),
-  title: "Orpheus",
+  metadataBase: new URL("https://z-fubao.netlify.app"),
+  title: "Z-Fubao",
   description:
-    "Orpheus: A Next.js template for Bitcoin applications built on ZeusLayer (zApps)",
+    "Z-Fubao: Earn, Pay, and Live with your Bitcoin - A DeFi protocol built on Solana for ZBTC collateralization and ZUSD staking",
   openGraph: {
-    images: ["/graphics/metadata-img.jpg"],
-    title: "Orpheus",
+    images: ["/zFuBao_logo.png"],
+    title: "Z-Fubao",
   },
   twitter: {
-    images: ["/graphics/metadata-img.jpg"],
+    images: ["/zFuBao_logo.png"],
     card: "summary_large_image",
   },
 };
@@ -77,7 +77,7 @@ export default function RootLayout({
                 </div>
                 <ToastContainer
                   stacked
-                  className="orpheus-toast"
+                  className="z-fubao-toast"
                   position="top-right"
                   autoClose={7500}
                   hideProgressBar={false}
