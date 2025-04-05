@@ -1,16 +1,16 @@
-import { ArrowDownIcon } from "@radix-ui/react-icons";
 import {
   Box,
   Button,
   Flex,
-  IconButton,
-  Select,
   Text,
   TextField,
+  Card,
+  Tabs,
 } from "@radix-ui/themes";
-import { useContext, useState, useEffect, useMemo } from "react";
+import { useContext, useState, useEffect } from "react";
 import { FeaturePanel } from "./FeaturePanel";
 import { SelectedWalletAccountContext } from "../context/SelectedWalletAccountContext";
+import { tokenIcons } from "../config";
 
 type TokenRates = {
   [key: string]: number;
@@ -29,67 +29,36 @@ const modeRatesMap: Record<Mode, TokenRates> = {
   },
 };
 
-export function StakePanel({ mode, label }: { mode: Mode; label: string }) {
+export function ConvertPanel({ mode }: { mode: Mode }) {
   const [selectedWalletAccount] = useContext(SelectedWalletAccountContext);
+  const [activeTab, setActiveTab] = useState<"stake" | "unstake">("stake");
 
   const rates = modeRatesMap[mode];
 
-  const { uniqueTokens, tokenPairs } = useMemo(() => {
-    const tokens = new Set<string>();
-    const pairs: Record<string, string[]> = {};
-
-    Object.keys(rates).forEach((pair) => {
-      const [from, to] = pair.split("-");
-      tokens.add(from);
-      tokens.add(to);
-
-      if (!pairs[from]) pairs[from] = [];
-      pairs[from].push(to);
-    });
-
-    return {
-      uniqueTokens: Array.from(tokens),
-      tokenPairs: pairs,
-    };
-  }, [rates]);
-
-  const [fromToken, setFromToken] = useState(uniqueTokens[0] || "");
+  const [fromToken, setFromToken] = useState("");
   const [toToken, setToToken] = useState("");
   const [amount, setAmount] = useState("");
   const [isSwapping, setIsSwapping] = useState(false);
 
   useEffect(() => {
-    if (fromToken && !toToken) {
-      const validPairs = tokenPairs[fromToken] || [];
-      if (validPairs.length > 0) {
-        setToToken(validPairs[0]);
+    if (mode === "btc") {
+      if (activeTab === "stake") {
+        setFromToken("BTC");
+        setToToken("zBTC");
+      } else {
+        setFromToken("zBTC");
+        setToToken("BTC");
+      }
+    } else if (mode === "zusd") {
+      if (activeTab === "stake") {
+        setFromToken("zUSD");
+        setToToken("szUSD");
+      } else {
+        setFromToken("szUSD");
+        setToToken("zUSD");
       }
     }
-  }, [fromToken, toToken, tokenPairs]);
-
-  const handleFromTokenChange = (token: string) => {
-    setFromToken(token);
-    const validPairs = tokenPairs[token] || [];
-    if (validPairs.length > 0) {
-      setToToken(validPairs[0]);
-    } else {
-      setToToken("");
-    }
-  };
-
-  const handleToTokenChange = (token: string) => {
-    setToToken(token);
-
-    const validFromTokens = Object.keys(tokenPairs).filter((from) =>
-      tokenPairs[from]?.includes(token)
-    );
-
-    if (!validFromTokens.includes(fromToken)) {
-      if (validFromTokens.length > 0) {
-        setFromToken(validFromTokens[0]);
-      }
-    }
-  };
+  }, [activeTab, mode]);
 
   const getRate = () => {
     const key = `${fromToken}-${toToken}`;
@@ -130,103 +99,229 @@ export function StakePanel({ mode, label }: { mode: Mode; label: string }) {
     }
   };
 
-  const switchTokens = () => {
-    const reversePairExists = Object.keys(rates).includes(
-      `${toToken}-${fromToken}`
-    );
-
-    if (reversePairExists) {
-      const oldFrom = fromToken;
-      setFromToken(toToken);
-      setToToken(oldFrom);
-    } else {
-      alert(`Trading pair ${toToken}-${fromToken} is not available`);
-    }
-  };
-
-  const isStake =
-    (mode === "btc" && fromToken === "BTC") ||
-    (mode === "zusd" && fromToken === "zUSD");
-  const operationString = isStake ? "Stake" : "Unstake";
+  const operationString = activeTab === "stake" ? "Stake" : "Unstake";
 
   return (
-    <FeaturePanel label={`${operationString} ${label}`}>
-      <Box style={{ maxWidth: "400px", width: "100%" }}>
-        <Flex direction="column" gap="3">
+    <FeaturePanel>
+      <Card
+        style={{
+          maxWidth: "450px",
+          width: "100%",
+          background: "rgba(25, 25, 28, 0.8)",
+          border: "1px solid rgba(99, 102, 241, 0.3)",
+          borderRadius: "20px",
+          padding: "32px",
+          boxShadow:
+            "0 10px 25px -5px rgba(0, 0, 0, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.1)",
+          transition: "transform 0.2s, box-shadow 0.2s",
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.transform = "translateY(-5px)";
+          e.currentTarget.style.boxShadow =
+            "0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -6px rgba(0, 0, 0, 0.2)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.transform = "none";
+          e.currentTarget.style.boxShadow =
+            "0 10px 25px -5px rgba(0, 0, 0, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.1)";
+        }}
+      >
+        <Flex direction="column" gap="4">
+          <Tabs.Root
+            defaultValue="stake"
+            onValueChange={(value) =>
+              setActiveTab(value as "stake" | "unstake")
+            }
+          >
+            <Tabs.List>
+              <Tabs.Trigger
+                value="stake"
+                style={{ width: "50%", fontSize: "16px", padding: "12px" }}
+              >
+                Stake
+              </Tabs.Trigger>
+              <Tabs.Trigger
+                value="unstake"
+                style={{ width: "50%", fontSize: "16px", padding: "12px" }}
+              >
+                Unstake
+              </Tabs.Trigger>
+            </Tabs.List>
+          </Tabs.Root>
+
           <Box>
-            <Text as="label" size="2" weight="bold">
+            <Text
+              as="label"
+              size="3"
+              weight="bold"
+              style={{ color: "var(--indigo-11)" }}
+            >
               From
             </Text>
-            <Flex gap="2">
-              <Select.Root
-                value={fromToken}
-                onValueChange={handleFromTokenChange}
+            <Flex gap="2" style={{ marginTop: "6px" }}>
+              <Box
+                style={{
+                  width: "160px",
+                  height: "45px",
+                  border: "1px solid var(--gray-7)",
+                  borderRadius: "8px",
+                  display: "flex",
+                  alignItems: "center",
+                  padding: "0 12px",
+                  backgroundColor: "var(--gray-3)",
+                }}
               >
-                <Select.Trigger style={{ width: "100px" }} />
-                <Select.Content>
-                  {uniqueTokens.map((token) => (
-                    <Select.Item key={token} value={token}>
-                      {token}
-                    </Select.Item>
-                  ))}
-                </Select.Content>
-              </Select.Root>
+                <Flex align="center" gap="2">
+                  {tokenIcons[fromToken]?.endsWith(".svg") ? (
+                    <img
+                      src={tokenIcons[fromToken]}
+                      alt={fromToken}
+                      style={{
+                        width: "30px",
+                        height: "30px",
+                        borderRadius: "50%",
+                      }}
+                    />
+                  ) : (
+                    <Text
+                      style={{
+                        width: "30px",
+                        height: "30px",
+                        borderRadius: "50%",
+                        backgroundColor: "var(--indigo-9)",
+                        color: "white",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        fontSize: "16px",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      {tokenIcons[fromToken] || "?"}
+                    </Text>
+                  )}
+                  <Text weight="medium" size="3">
+                    {fromToken}
+                  </Text>
+                </Flex>
+              </Box>
               <TextField.Root
-                style={{ width: "100%" }}
+                style={{ width: "100%", fontSize: "16px", height: "45px" }}
                 placeholder="0.0"
                 type="number"
                 value={amount}
                 onChange={(e: React.SyntheticEvent<HTMLInputElement>) =>
                   setAmount(e.currentTarget.value)
                 }
-              />
-            </Flex>
-          </Box>
-
-          <Flex justify="center" align="center">
-            <IconButton variant="soft" color="gray" onClick={switchTokens}>
-              <ArrowDownIcon />
-            </IconButton>
-          </Flex>
-
-          <Box>
-            <Text as="label" size="2" weight="bold">
-              To
-            </Text>
-            <Flex gap="2">
-              <Select.Root value={toToken} onValueChange={handleToTokenChange}>
-                <Select.Trigger style={{ width: "100px" }} />
-                <Select.Content>
-                  {uniqueTokens.map((token) => (
-                    <Select.Item key={token} value={token}>
-                      {token}
-                    </Select.Item>
-                  ))}
-                </Select.Content>
-              </Select.Root>
-              <TextField.Root
-                style={{ width: "100%" }}
-                placeholder="0.0"
-                type="number"
-                value={getEstimatedAmount()}
-                readOnly
+                size="3"
               />
             </Flex>
           </Box>
 
           <Box style={{ marginTop: "8px" }}>
-            <Text size="1" color="gray">
+            <Text
+              as="label"
+              size="3"
+              weight="bold"
+              style={{ color: "var(--indigo-11)" }}
+            >
+              To
+            </Text>
+            <Flex gap="2" style={{ marginTop: "6px" }}>
+              <Box
+                style={{
+                  width: "160px",
+                  height: "45px",
+                  border: "1px solid var(--gray-7)",
+                  borderRadius: "8px",
+                  display: "flex",
+                  alignItems: "center",
+                  padding: "0 12px",
+                  backgroundColor: "var(--gray-3)",
+                }}
+              >
+                <Flex align="center" gap="2">
+                  {tokenIcons[toToken]?.endsWith(".svg") ? (
+                    <img
+                      src={tokenIcons[toToken]}
+                      alt={toToken}
+                      style={{
+                        width: "30px",
+                        height: "30px",
+                        borderRadius: "50%",
+                      }}
+                    />
+                  ) : (
+                    <Text
+                      style={{
+                        width: "30px",
+                        height: "30px",
+                        borderRadius: "50%",
+                        backgroundColor: "var(--indigo-9)",
+                        color: "white",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        fontSize: "16px",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      {tokenIcons[toToken] || "?"}
+                    </Text>
+                  )}
+                  <Text weight="medium" size="3">
+                    {toToken}
+                  </Text>
+                </Flex>
+              </Box>
+              <TextField.Root
+                style={{ width: "100%", fontSize: "16px", height: "45px" }}
+                placeholder="0.0"
+                type="number"
+                value={getEstimatedAmount()}
+                readOnly
+                size="3"
+              />
+            </Flex>
+          </Box>
+
+          <Box style={{ marginTop: "12px" }}>
+            <Text size="2" style={{ color: "var(--gray-9)" }}>
               Rate: 1 {fromToken} = {getRate()} {toToken}
             </Text>
           </Box>
 
           <Button
             color="indigo"
-            size="3"
+            size="4"
             onClick={handleSwap}
             disabled={
               !amount || !selectedWalletAccount || isSwapping || !toToken
             }
+            style={{
+              background:
+                "linear-gradient(45deg, var(--indigo-9), var(--purple-9))",
+              borderRadius: "24px",
+              color: "white",
+              boxShadow: "0 4px 14px rgba(79, 70, 229, 0.4)",
+              transition: "transform 0.2s, box-shadow 0.2s",
+              marginTop: "16px",
+              fontSize: "16px",
+              padding: "0 20px",
+              height: "50px",
+            }}
+            onMouseEnter={(e) => {
+              if (amount && selectedWalletAccount && !isSwapping && toToken) {
+                e.currentTarget.style.transform = "translateY(-2px)";
+                e.currentTarget.style.boxShadow =
+                  "0 6px 20px rgba(79, 70, 229, 0.5)";
+              }
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = "none";
+              e.currentTarget.style.boxShadow =
+                "0 4px 14px rgba(79, 70, 229, 0.4)";
+            }}
           >
             {isSwapping
               ? `${operationString}...`
@@ -235,7 +330,7 @@ export function StakePanel({ mode, label }: { mode: Mode; label: string }) {
               : `Connect Wallet to ${operationString}`}
           </Button>
         </Flex>
-      </Box>
+      </Card>
     </FeaturePanel>
   );
 }

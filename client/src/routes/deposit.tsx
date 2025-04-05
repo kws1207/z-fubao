@@ -1,4 +1,4 @@
-import { StakePanel } from "../components/ConvertPanel";
+import { ConvertPanel } from "../components/ConvertPanel";
 import { Box, Container, Flex, Heading, Section, Text } from "@radix-ui/themes";
 import { Footer } from "../components/Footer";
 
@@ -66,7 +66,9 @@ function Deposit() {
               can be used as collateral to mint zUSD or for staking.
             </Text>
           </Flex>
-          <StakePanel mode="btc" label="Native BTC" />
+          <Flex justify="center" width="100%">
+            <ConvertPanel mode="btc" />
+          </Flex>
         </Container>
       </Section>
       <Footer />

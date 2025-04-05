@@ -67,7 +67,9 @@ function Mint() {
               protocol.
             </Text>
           </Flex>
-          <LockAndMintPanel />
+          <Flex justify="center" width="100%">
+            <LockAndMintPanel />
+          </Flex>
         </Container>
       </Section>
       <Footer />

@@ -2,7 +2,6 @@ import {
   Box,
   Button,
   Flex,
-  Select,
   Text,
   TextField,
   Separator,
@@ -81,72 +80,162 @@ export function LockAndMintPanel() {
 
   return (
     <FeaturePanel label="Lock & Mint">
-      <Card style={{ width: "100%" }}>
-        <Flex direction="row" gap="6" align="center">
+      <Card
+        style={{
+          width: "100%",
+          background: "rgba(25, 25, 28, 0.8)",
+          border: "1px solid rgba(99, 102, 241, 0.3)",
+          borderRadius: "20px",
+          padding: "32px",
+          boxShadow:
+            "0 10px 25px -5px rgba(0, 0, 0, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.1)",
+          transition: "transform 0.2s, box-shadow 0.2s",
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.transform = "translateY(-5px)";
+          e.currentTarget.style.boxShadow =
+            "0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -6px rgba(0, 0, 0, 0.2)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.transform = "none";
+          e.currentTarget.style.boxShadow =
+            "0 10px 25px -5px rgba(0, 0, 0, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.1)";
+        }}
+      >
+        <Flex direction="row" gap="8" align="center">
           <Box style={{ flex: 1 }}>
-            <Flex direction="column" gap="2">
-              <Text as="label" size="2" weight="bold">
+            <Flex direction="column" gap="3">
+              <Text
+                as="label"
+                size="3"
+                weight="bold"
+                style={{ color: "var(--indigo-11)" }}
+              >
                 Lock zBTC as Collateral
               </Text>
               <Flex gap="2" align="center">
-                <Select.Root value="zBTC" disabled>
-                  <Select.Trigger style={{ width: "80px" }} />
-                  <Select.Content>
-                    <Select.Item value="zBTC">zBTC</Select.Item>
-                  </Select.Content>
-                </Select.Root>
+                <Box
+                  style={{
+                    width: "100px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    padding: "10px 12px",
+                    background: "rgba(59, 130, 246, 0.1)",
+                    borderRadius: "8px",
+                    border: "1px solid rgba(59, 130, 246, 0.2)",
+                  }}
+                >
+                  <Box
+                    style={{
+                      width: "20px",
+                      height: "20px",
+                      borderRadius: "50%",
+                      background: "linear-gradient(45deg, #F7931A, #F9B112)",
+                      marginRight: "8px",
+                    }}
+                  />
+                  <Text size="3" weight="medium">
+                    zBTC
+                  </Text>
+                </Box>
                 <TextField.Root
-                  style={{ width: "100%" }}
+                  style={{ width: "100%", fontSize: "16px" }}
                   placeholder="0.0"
                   type="number"
                   value={btcAmount}
                   onChange={(e: React.SyntheticEvent<HTMLInputElement>) =>
                     setBtcAmount(e.currentTarget.value)
                   }
+                  size="3"
                 />
               </Flex>
               {btcPrice && (
-                <Text size="1" color="gray">
+                <Text size="2" style={{ color: "var(--gray-9)" }}>
                   1 BTC = ${btcPrice.toFixed(2)} USD
                 </Text>
               )}
             </Flex>
           </Box>
 
-          <Separator orientation="vertical" size="3" />
+          <Separator
+            orientation="vertical"
+            size="4"
+            style={{
+              background:
+                "linear-gradient(to bottom, rgba(99, 102, 241, 0.1), rgba(147, 51, 234, 0.1))",
+              height: "120px",
+            }}
+          />
 
           <Box style={{ flex: 1 }}>
-            <Flex direction="column" gap="2">
-              <Text as="label" size="2" weight="bold">
+            <Flex direction="column" gap="3">
+              <Text
+                as="label"
+                size="3"
+                weight="bold"
+                style={{ color: "var(--indigo-11)" }}
+              >
                 Mint zUSD (70% LTV)
               </Text>
               <Flex gap="2" align="center">
-                <Select.Root value="zUSD" disabled>
-                  <Select.Trigger style={{ width: "80px" }} />
-                  <Select.Content>
-                    <Select.Item value="zUSD">zUSD</Select.Item>
-                  </Select.Content>
-                </Select.Root>
+                <Box
+                  style={{
+                    width: "100px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    padding: "10px 12px",
+                    background: "rgba(16, 185, 129, 0.1)",
+                    borderRadius: "8px",
+                    border: "1px solid rgba(16, 185, 129, 0.2)",
+                  }}
+                >
+                  <Box
+                    style={{
+                      width: "20px",
+                      height: "20px",
+                      borderRadius: "50%",
+                      background: "linear-gradient(45deg, #2CAA6E, #43B776)",
+                      marginRight: "8px",
+                    }}
+                  />
+                  <Text size="3" weight="medium">
+                    zUSD
+                  </Text>
+                </Box>
                 <TextField.Root
-                  style={{ width: "100%" }}
+                  style={{ width: "100%", fontSize: "16px" }}
                   placeholder="0.0"
                   type="number"
                   value={usdAmount}
                   readOnly
+                  size="3"
                 />
               </Flex>
-              <Text size="1" color="gray">
+              <Text size="2" style={{ color: "var(--gray-9)" }}>
                 LTV Ratio: 70%
               </Text>
             </Flex>
           </Box>
         </Flex>
 
-        <Box style={{ marginTop: "16px" }}>
+        <Box style={{ marginTop: "24px" }}>
           <Button
             color="indigo"
-            size="3"
-            style={{ width: "100%" }}
+            size="4"
+            style={{
+              width: "100%",
+              background:
+                "linear-gradient(45deg, var(--indigo-9), var(--purple-9))",
+              borderRadius: "24px",
+              color: "white",
+              boxShadow: "0 4px 14px rgba(79, 70, 229, 0.4)",
+              transition: "transform 0.2s, box-shadow 0.2s",
+              fontSize: "16px",
+              padding: "0 20px",
+              height: "50px",
+            }}
             onClick={handleLockAndMint}
             disabled={
               !btcAmount ||
@@ -154,6 +243,23 @@ export function LockAndMintPanel() {
               !selectedWalletAccount ||
               isProcessing
             }
+            onMouseEnter={(e) => {
+              if (
+                btcAmount &&
+                parseFloat(btcAmount) > 0 &&
+                selectedWalletAccount &&
+                !isProcessing
+              ) {
+                e.currentTarget.style.transform = "translateY(-2px)";
+                e.currentTarget.style.boxShadow =
+                  "0 6px 20px rgba(79, 70, 229, 0.5)";
+              }
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = "none";
+              e.currentTarget.style.boxShadow =
+                "0 4px 14px rgba(79, 70, 229, 0.4)";
+            }}
           >
             {isProcessing
               ? "Processing..."

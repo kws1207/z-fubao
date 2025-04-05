@@ -1,4 +1,4 @@
-import { StakePanel } from "../components/ConvertPanel";
+import { ConvertPanel } from "../components/ConvertPanel";
 import { Box, Container, Flex, Heading, Section, Text } from "@radix-ui/themes";
 import { Footer } from "../components/Footer";
 
@@ -66,7 +66,9 @@ function Earn() {
               Your funds are distributed across multiple high-performing vaults.
             </Text>
           </Flex>
-          <StakePanel mode="zusd" label="zUSD" />
+          <Flex justify="center" width="100%">
+            <ConvertPanel mode="zusd" label="zUSD" />
+          </Flex>
         </Container>
       </Section>
       <Footer />
