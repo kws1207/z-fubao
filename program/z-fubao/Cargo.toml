@@ -1,0 +1,29 @@
+cargo-features = ["edition2024"]
+
+[package]
+name = "z-fubao"
+version = { workspace = true }
+edition = { workspace = true }
+description = "ZBTC/ZUSD Vault with 70% LTV"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+
+[features]
+no-entrypoint = []
+cpi = ["no-entrypoint"]
+
+[dependencies]
+solana-program = { workspace = true     }
+spl-token = { workspace = true, features = ["no-entrypoint"] }
+spl-associated-token-account = { workspace = true, features = ["no-entrypoint"] }
+
+borsh = { workspace = true }
+thiserror = { workspace = true }
+
+[dev-dependencies]
+solana-program-test = { workspace = true }
+solana-sdk = { workspace = true }
+solana-client = { workspace = true }
+lazy_static = { workspace = true }
+tokio = { workspace = true }
