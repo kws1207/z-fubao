@@ -94,5 +94,5 @@ pnpm preview   # Preview production build
 ```
 
 ## Team
-<img src="https://github.com/user-attachments/assets/583a005a-d5f3-45c6-bab9-aa271f44fe6f" alt="Orakle@KAIST" width="200"/>
+[<img src="https://github.com/user-attachments/assets/583a005a-d5f3-45c6-bab9-aa271f44fe6f" alt="Orakle@KAIST" width="200"/>](https://www.orakle-kaist.xyz/en)
 
