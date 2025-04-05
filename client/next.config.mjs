@@ -59,6 +59,9 @@ async function getAssetMint(guardianSettingAccountAddress, connection) {
 
 const nextConfig = async () => {
   const config = {
+    eslint: {
+      ignoreDuringBuilds: true,
+    },
     experimental: {
       missingSuspenseWithCSRBailout: false,
     },

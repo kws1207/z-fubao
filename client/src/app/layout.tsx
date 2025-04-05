@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { Rethink_Sans, JetBrains_Mono } from "next/font/google";
 import { Slide, ToastContainer } from "react-toastify";
-import { Theme, Flex } from "@radix-ui/themes";
+import { Theme } from "@radix-ui/themes";
 
 import { BitcoinWalletProvider } from "@/contexts/BitcoinWalletProvider";
 import SolanaWalletProvider from "@/contexts/SolanaWalletProvider";
