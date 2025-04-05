@@ -1,12 +1,10 @@
 import {
   Badge,
   Box,
-  Button,
   DropdownMenu,
   Flex,
   Heading,
   Avatar,
-  IconButton,
 } from "@radix-ui/themes";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
@@ -110,6 +108,16 @@ export function Nav() {
               }}
             >
               Earn
+            </Link>
+            <Link
+              to="/dashboard"
+              style={{
+                color: "var(--gray-12)",
+                textDecoration: "none",
+                fontWeight: 500,
+              }}
+            >
+              Dashboard
             </Link>
           </Flex>
 

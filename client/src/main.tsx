@@ -14,6 +14,7 @@ import Root from "./routes/root.tsx";
 import Mint from "./routes/mint.tsx";
 import Earn from "./routes/earn.tsx";
 import Deposit from "./routes/deposit.tsx";
+import Dashboard from "./routes/dashboard.tsx";
 
 const rootNode = document.getElementById("root")!;
 const root = createRoot(rootNode);
@@ -32,6 +33,7 @@ root.render(
                   <Route path="/mint" element={<Mint />} />
                   <Route path="/earn" element={<Earn />} />
                   <Route path="/deposit" element={<Deposit />} />
+                  <Route path="/dashboard" element={<Dashboard />} />
                 </Routes>
               </Flex>
             </RpcContextProvider>
