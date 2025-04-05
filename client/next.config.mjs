@@ -65,7 +65,7 @@ const nextConfig = async () => {
     experimental: {
       missingSuspenseWithCSRBailout: false,
     },
-    reactStrictMode: false,
+    reactStrictMode: true,
     webpack: function (config, options) {
       if (options.nextRuntime === "edge") {
         config.resolve.fallback = {
