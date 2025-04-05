@@ -2,34 +2,26 @@ import {
   Box,
   Code,
   Container,
-  DataList,
   Flex,
   Heading,
   Spinner,
   Text,
 } from "@radix-ui/themes";
-import { getUiWalletAccountStorageKey } from "@wallet-standard/react";
+
 import { Suspense, useContext } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 
 import { Balance } from "../components/Balance";
-import { FeatureNotSupportedCallout } from "../components/FeatureNotSupportedCallout";
-import { FeaturePanel } from "../components/FeaturePanel";
-import { SolanaSignAndSendTransactionFeaturePanel } from "../components/SolanaSignAndSendTransactionFeaturePanel";
-import { SolanaSignMessageFeaturePanel } from "../components/SolanaSignMessageFeaturePanel";
 import { WalletAccountIcon } from "../components/WalletAccountIcon";
 import { ChainContext } from "../context/ChainContext";
 import { SelectedWalletAccountContext } from "../context/SelectedWalletAccountContext";
 import { StakePanel } from "../components/ConvertPanel";
+import { LockAndMintPanel } from "../components/LockAndMintPanel";
 
 function Root() {
   const { chain } = useContext(ChainContext);
   const [selectedWalletAccount] = useContext(SelectedWalletAccountContext);
-  const errorBoundaryResetKeys = [
-    chain,
-    selectedWalletAccount &&
-      getUiWalletAccountStorageKey(selectedWalletAccount),
-  ].filter(Boolean);
+
   return (
     <Container mx={{ initial: "3", xs: "6" }}>
       {selectedWalletAccount ? (
@@ -68,33 +60,6 @@ function Root() {
               </ErrorBoundary>
             </Flex>
           </Flex>
-          <DataList.Root
-            orientation={{ initial: "vertical", sm: "horizontal" }}
-            size="3"
-          >
-            <FeaturePanel label="Sign Message">
-              <ErrorBoundary
-                FallbackComponent={FeatureNotSupportedCallout}
-                resetKeys={errorBoundaryResetKeys}
-              >
-                <SolanaSignMessageFeaturePanel
-                  account={selectedWalletAccount}
-                />
-              </ErrorBoundary>
-            </FeaturePanel>
-            <FeaturePanel label="Sign And Send Transaction">
-              <ErrorBoundary
-                FallbackComponent={FeatureNotSupportedCallout}
-                resetKeys={errorBoundaryResetKeys}
-              >
-                <SolanaSignAndSendTransactionFeaturePanel
-                  account={selectedWalletAccount}
-                />
-              </ErrorBoundary>
-            </FeaturePanel>
-          </DataList.Root>
-          <StakePanel mode="btc" label="Native BTC" />
-          <StakePanel mode="zusd" label="zUSD" />
         </Flex>
       ) : (
         <Text as="p">Click &ldquo;Connect Wallet&rdquo; to get started.</Text>
