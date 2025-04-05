@@ -30,7 +30,7 @@ export function Nav() {
           />
           <Heading as="h1" size={{ initial: "4", xs: "5" }} truncate>
             <Badge color="gray" style={{ verticalAlign: "middle" }}>
-              Mainnet
+              Devnet
             </Badge>
           </Heading>
         </Flex>

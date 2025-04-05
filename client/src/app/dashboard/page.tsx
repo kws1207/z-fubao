@@ -22,6 +22,10 @@ import { useState } from "react";
 
 import { Footer } from "@/components/Footer";
 import { ChargeModal } from "@/components/Modal/ChargeModal";
+import BigNumber from "bignumber.js";
+
+// BTC 소수점 자리수 상수 정의
+const BTC_DECIMALS = 8;
 
 interface AssetCardProps {
   label: string;
@@ -271,12 +275,31 @@ export default function Dashboard() {
   const isConnected = !!publicKey;
   const [chargeModalOpen, setChargeModalOpen] = useState(false);
 
+  // 개발 목적으로 고정된 zBTC 값 설정 - 0.190996 BTC (satoshi 단위로 변환)
+  const zbtcBalance = new BigNumber(0.190996 * 10 ** BTC_DECIMALS);
+
+  // BTC 가격 (하드코딩)
+  const btcPrice = 84636;
+
+  // zBTC 값 계산 (소수점 2자리로 제한)
+  const zbtcBalanceValue = isConnected
+    ? new BigNumber(zbtcBalance).div(10 ** BTC_DECIMALS).toFixed(2)
+    : "-";
+
+  // zBTC 달러 가치 계산
+  const zbtcDollarValue = isConnected
+    ? `$${new BigNumber(zbtcBalance)
+        .div(10 ** BTC_DECIMALS)
+        .multipliedBy(btcPrice)
+        .toFormat(2)}`
+    : "-";
+
   const assetData = {
     zBTC: {
-      value: isConnected ? "0.245" : "-",
+      value: zbtcBalanceValue,
       change: "12.5%",
       isPositive: true,
-      dollarValue: "$20,580",
+      dollarValue: zbtcDollarValue,
     },
     zUSD: {
       value: isConnected ? "3,245.78" : "-",

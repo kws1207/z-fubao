@@ -179,6 +179,7 @@ export default function Home() {
                     color: "white",
                     boxShadow: "0 4px 14px rgba(79, 70, 229, 0.4)",
                     transition: "transform 0.2s, box-shadow 0.2s",
+                    minWidth: "180px",
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.transform = "translateY(-2px)";
@@ -193,7 +194,13 @@ export default function Home() {
                 >
                   <Link
                     href="/mint"
-                    style={{ color: "inherit", textDecoration: "none" }}
+                    style={{
+                      color: "inherit",
+                      textDecoration: "none",
+                      display: "flex",
+                      alignItems: "center",
+                      whiteSpace: "nowrap",
+                    }}
                   >
                     Deposit Now
                     <ExternalLinkIcon style={{ marginLeft: "4px" }} />
@@ -641,9 +648,16 @@ export default function Home() {
             >
               <Link
                 href="/mint"
-                style={{ color: "inherit", textDecoration: "none" }}
+                style={{
+                  color: "inherit",
+                  textDecoration: "none",
+                  display: "flex",
+                  alignItems: "center",
+                  whiteSpace: "nowrap",
+                }}
               >
                 Deposit Now
+                <ExternalLinkIcon style={{ marginLeft: "4px" }} />
               </Link>
             </Button>
           </Flex>
