@@ -1,5 +1,5 @@
 import { Box, Container, Flex, Text } from "@radix-ui/themes";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import {
   GitHubLogoIcon,
   DiscordLogoIcon,
@@ -23,7 +23,7 @@ export function Footer() {
           </Text>
           <Flex gap="4">
             <Link
-              to="https://github.com/kws1207/z-fubao"
+              href="https://github.com/kws1207/z-fubao"
               style={{
                 color: "var(--indigo-11)",
                 textDecoration: "none",
@@ -46,7 +46,7 @@ export function Footer() {
               <GitHubLogoIcon width="24" height="24" />
             </Link>
             <Link
-              to="/"
+              href="/"
               style={{
                 color: "var(--purple-11)",
                 textDecoration: "none",
@@ -69,7 +69,7 @@ export function Footer() {
               <DiscordLogoIcon width="24" height="24" />
             </Link>
             <Link
-              to="/"
+              href="/"
               style={{
                 color: "var(--blue-11)",
                 textDecoration: "none",

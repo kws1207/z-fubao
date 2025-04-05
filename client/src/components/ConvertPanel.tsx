@@ -7,10 +7,10 @@ import {
   Card,
   Tabs,
 } from "@radix-ui/themes";
-import { useContext, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { FeaturePanel } from "./FeaturePanel";
-import { SelectedWalletAccountContext } from "../context/SelectedWalletAccountContext";
 import { tokenIcons } from "../config";
+import { useWallet } from "@solana/wallet-adapter-react";
 
 type TokenRates = {
   [key: string]: number;
@@ -30,8 +30,8 @@ const modeRatesMap: Record<Mode, TokenRates> = {
 };
 
 export function ConvertPanel({ mode }: { mode: Mode }) {
-  const [selectedWalletAccount] = useContext(SelectedWalletAccountContext);
   const [activeTab, setActiveTab] = useState<"stake" | "unstake">("stake");
+  const { publicKey } = useWallet();
 
   const rates = modeRatesMap[mode];
 
@@ -72,7 +72,7 @@ export function ConvertPanel({ mode }: { mode: Mode }) {
   };
 
   const handleSwap = async () => {
-    if (!selectedWalletAccount) {
+    if (!publicKey) {
       alert("Please connect your wallet first");
       return;
     }
@@ -161,7 +161,7 @@ export function ConvertPanel({ mode }: { mode: Mode }) {
             <Flex gap="2" style={{ marginTop: "6px" }}>
               <Box
                 style={{
-                  width: "160px",
+                  width: "176px",
                   height: "45px",
                   border: "1px solid var(--gray-7)",
                   borderRadius: "8px",
@@ -210,8 +210,8 @@ export function ConvertPanel({ mode }: { mode: Mode }) {
                 placeholder="0.0"
                 type="number"
                 value={amount}
-                onChange={(e: React.SyntheticEvent<HTMLInputElement>) =>
-                  setAmount(e.currentTarget.value)
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setAmount(e.target.value)
                 }
                 size="3"
               />
@@ -230,7 +230,7 @@ export function ConvertPanel({ mode }: { mode: Mode }) {
             <Flex gap="2" style={{ marginTop: "6px" }}>
               <Box
                 style={{
-                  width: "160px",
+                  width: "176px",
                   height: "45px",
                   border: "1px solid var(--gray-7)",
                   borderRadius: "8px",
@@ -274,61 +274,53 @@ export function ConvertPanel({ mode }: { mode: Mode }) {
                   </Text>
                 </Flex>
               </Box>
-              <TextField.Root
-                style={{ width: "100%", fontSize: "16px", height: "45px" }}
-                placeholder="0.0"
-                type="number"
-                value={getEstimatedAmount()}
-                readOnly
-                size="3"
-              />
+              <Box
+                style={{
+                  width: "100%",
+                  height: "45px",
+                  border: "1px solid var(--gray-7)",
+                  borderRadius: "8px",
+                  display: "flex",
+                  alignItems: "center",
+                  padding: "0 12px",
+                  backgroundColor: "var(--gray-2)",
+                  color: "var(--gray-11)",
+                }}
+              >
+                {getEstimatedAmount()}
+              </Box>
             </Flex>
           </Box>
 
-          <Box style={{ marginTop: "12px" }}>
-            <Text size="2" style={{ color: "var(--gray-9)" }}>
+          <Flex direction="column" gap="2" style={{ marginTop: "16px" }}>
+            <Text size="2" style={{ color: "var(--gray-11)" }}>
               Rate: 1 {fromToken} = {getRate()} {toToken}
             </Text>
-          </Box>
-
-          <Button
-            color="indigo"
-            size="4"
-            onClick={handleSwap}
-            disabled={
-              !amount || !selectedWalletAccount || isSwapping || !toToken
-            }
-            style={{
-              background:
-                "linear-gradient(45deg, var(--indigo-9), var(--purple-9))",
-              borderRadius: "24px",
-              color: "white",
-              boxShadow: "0 4px 14px rgba(79, 70, 229, 0.4)",
-              transition: "transform 0.2s, box-shadow 0.2s",
-              marginTop: "16px",
-              fontSize: "16px",
-              padding: "0 20px",
-              height: "50px",
-            }}
-            onMouseEnter={(e) => {
-              if (amount && selectedWalletAccount && !isSwapping && toToken) {
-                e.currentTarget.style.transform = "translateY(-2px)";
-                e.currentTarget.style.boxShadow =
-                  "0 6px 20px rgba(79, 70, 229, 0.5)";
-              }
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = "none";
-              e.currentTarget.style.boxShadow =
-                "0 4px 14px rgba(79, 70, 229, 0.4)";
-            }}
-          >
-            {isSwapping
-              ? `${operationString}...`
-              : selectedWalletAccount
-              ? operationString
-              : `Connect Wallet to ${operationString}`}
-          </Button>
+            <Button
+              size="3"
+              style={{
+                width: "100%",
+                marginTop: "8px",
+                backgroundColor: "var(--indigo-9)",
+                color: "white",
+                fontWeight: "bold",
+                cursor: isSwapping ? "not-allowed" : "pointer",
+                opacity: isSwapping ? 0.7 : 1,
+              }}
+              onClick={handleSwap}
+              disabled={isSwapping || !amount || parseFloat(amount) <= 0}
+            >
+              {isSwapping ? "Processing..." : `${operationString}`}
+            </Button>
+            {!publicKey && (
+              <Text
+                size="2"
+                style={{ color: "var(--amber-9)", marginTop: "8px" }}
+              >
+                Please connect your wallet to {operationString.toLowerCase()}.
+              </Text>
+            )}
+          </Flex>
         </Flex>
       </Card>
     </FeaturePanel>

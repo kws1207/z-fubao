@@ -7,11 +7,10 @@ import {
   Separator,
   Card,
 } from "@radix-ui/themes";
-import { useContext, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { FeaturePanel } from "./FeaturePanel";
-import { SelectedWalletAccountContext } from "../context/SelectedWalletAccountContext";
 import { tokenIcons } from "../config";
-
+import { useWallet } from "@solana/wallet-adapter-react";
 const fetchBTCPrice = async (): Promise<number> => {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -21,7 +20,7 @@ const fetchBTCPrice = async (): Promise<number> => {
 };
 
 export function LockAndMintPanel() {
-  const [selectedWalletAccount] = useContext(SelectedWalletAccountContext);
+  const { publicKey } = useWallet();
   const [btcAmount, setBtcAmount] = useState("");
   const [usdAmount, setUsdAmount] = useState("");
   const [btcPrice, setBtcPrice] = useState<number | null>(null);
@@ -51,7 +50,7 @@ export function LockAndMintPanel() {
   }, [btcAmount, btcPrice]);
 
   const handleLockAndMint = async () => {
-    if (!selectedWalletAccount) {
+    if (!publicKey) {
       alert("Please connect your wallet first");
       return;
     }
@@ -80,9 +79,10 @@ export function LockAndMintPanel() {
   };
 
   return (
-    <FeaturePanel label="Lock & Mint">
+    <FeaturePanel>
       <Card
         style={{
+          maxWidth: "750px",
           width: "100%",
           background: "rgba(25, 25, 28, 0.8)",
           border: "1px solid rgba(99, 102, 241, 0.3)",
@@ -127,7 +127,7 @@ export function LockAndMintPanel() {
                     border: "1px solid rgba(59, 130, 246, 0.2)",
                   }}
                 >
-                  {tokenIcons.zBTC.endsWith(".svg") ? (
+                  {tokenIcons.zBTC?.endsWith(".svg") ? (
                     <img
                       src={tokenIcons.zBTC}
                       alt="zBTC"
@@ -143,7 +143,7 @@ export function LockAndMintPanel() {
                       weight="medium"
                       style={{ marginRight: "8px" }}
                     >
-                      {tokenIcons.zBTC}
+                      {tokenIcons.zBTC || "?"}
                     </Text>
                   )}
                   <Text size="3" weight="medium">
@@ -155,8 +155,8 @@ export function LockAndMintPanel() {
                   placeholder="0.0"
                   type="number"
                   value={btcAmount}
-                  onChange={(e: React.SyntheticEvent<HTMLInputElement>) =>
-                    setBtcAmount(e.currentTarget.value)
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setBtcAmount(e.target.value)
                   }
                   size="3"
                 />
@@ -202,7 +202,7 @@ export function LockAndMintPanel() {
                     border: "1px solid rgba(16, 185, 129, 0.2)",
                   }}
                 >
-                  {tokenIcons.zUSD.endsWith(".svg") ? (
+                  {tokenIcons.zUSD?.endsWith(".svg") ? (
                     <img
                       src={tokenIcons.zUSD}
                       alt="zUSD"
@@ -218,7 +218,7 @@ export function LockAndMintPanel() {
                       weight="medium"
                       style={{ marginRight: "8px" }}
                     >
-                      {tokenIcons.zUSD}
+                      {tokenIcons.zUSD || "?"}
                     </Text>
                   )}
                   <Text size="3" weight="medium">
@@ -243,51 +243,28 @@ export function LockAndMintPanel() {
 
         <Box style={{ marginTop: "24px" }}>
           <Button
-            color="indigo"
             size="4"
             style={{
               width: "100%",
-              background:
-                "linear-gradient(45deg, var(--indigo-9), var(--purple-9))",
-              borderRadius: "24px",
+              background: "var(--indigo-9)",
               color: "white",
-              boxShadow: "0 4px 14px rgba(79, 70, 229, 0.4)",
-              transition: "transform 0.2s, box-shadow 0.2s",
-              fontSize: "16px",
-              padding: "0 20px",
-              height: "50px",
+              fontWeight: "bold",
+              cursor: isProcessing ? "not-allowed" : "pointer",
+              opacity: isProcessing ? 0.7 : 1,
             }}
             onClick={handleLockAndMint}
-            disabled={
-              !btcAmount ||
-              parseFloat(btcAmount) <= 0 ||
-              !selectedWalletAccount ||
-              isProcessing
-            }
-            onMouseEnter={(e) => {
-              if (
-                btcAmount &&
-                parseFloat(btcAmount) > 0 &&
-                selectedWalletAccount &&
-                !isProcessing
-              ) {
-                e.currentTarget.style.transform = "translateY(-2px)";
-                e.currentTarget.style.boxShadow =
-                  "0 6px 20px rgba(79, 70, 229, 0.5)";
-              }
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = "none";
-              e.currentTarget.style.boxShadow =
-                "0 4px 14px rgba(79, 70, 229, 0.4)";
-            }}
+            disabled={isProcessing || !btcAmount || parseFloat(btcAmount) <= 0}
           >
-            {isProcessing
-              ? "Processing..."
-              : selectedWalletAccount
-              ? "Lock & Mint"
-              : "Connect Wallet to Lock & Mint"}
+            {isProcessing ? "Processing..." : "Lock & Mint"}
           </Button>
+          {!publicKey && (
+            <Text
+              size="2"
+              style={{ color: "var(--amber-9)", marginTop: "8px" }}
+            >
+              Please connect your wallet to lock and mint.
+            </Text>
+          )}
         </Box>
       </Card>
     </FeaturePanel>
