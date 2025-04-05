@@ -22,6 +22,7 @@ interface AssetCardProps {
   value: string;
   change?: string;
   isPositive?: boolean;
+  dollarValue?: string;
 }
 
 function AssetCard({
@@ -29,6 +30,7 @@ function AssetCard({
   value,
   change,
   isPositive = true,
+  dollarValue,
 }: AssetCardProps) {
   return (
     <Card
@@ -87,19 +89,34 @@ function AssetCard({
             <InfoCircledIcon />
           </IconButton>
         </Flex>
-        <Heading
-          size="8"
-          weight="bold"
-          style={{
-            background:
-              "linear-gradient(90deg, var(--indigo-9), var(--purple-9))",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            marginBottom: "4px",
-          }}
-        >
-          {value}
-        </Heading>
+        <Flex align="center" gap="2">
+          <Heading
+            size="8"
+            weight="bold"
+            style={{
+              background:
+                "linear-gradient(90deg, var(--indigo-9), var(--purple-9))",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              marginBottom: "4px",
+              whiteSpace: "nowrap",
+            }}
+          >
+            {value}
+          </Heading>
+          {dollarValue && (
+            <Text
+              size="2"
+              style={{
+                color: "var(--gray-11)",
+                alignSelf: "flex-end",
+                marginBottom: "7px",
+              }}
+            >
+              (~{dollarValue})
+            </Text>
+          )}
+        </Flex>
         {change && (
           <Text
             size="2"
@@ -307,6 +324,7 @@ function Dashboard() {
               value={assetData.zBTC.value}
               change={assetData.zBTC.change}
               isPositive={assetData.zBTC.isPositive}
+              dollarValue={assetData.zBTC.dollarValue}
             />
             <AssetCard
               label="zUSD Balance"

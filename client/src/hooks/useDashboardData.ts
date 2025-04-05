@@ -10,6 +10,7 @@ export const useDashboardData = () => {
       value: isConnected ? "1.25 BTC" : "-",
       change: isConnected ? "0.05 BTC (4.2%)" : "-",
       isPositive: true,
+      dollarValue: isConnected ? "$104,319" : undefined,
     },
     zUSD: {
       value: isConnected ? "$15,750" : "-",
